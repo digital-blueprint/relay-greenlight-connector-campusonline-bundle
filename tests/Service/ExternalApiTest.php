@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\Tests\Service;
 
-use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\MyCustomService;
 use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\ExternalApi;
+use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\MyCustomService;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ExternalApiTest extends WebTestCase
