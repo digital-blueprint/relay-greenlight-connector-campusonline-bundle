@@ -1,0 +1,11 @@
+services:
+  Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\ExternalApi:
+    autowire: true
+    autoconfigure: true
+
+  Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\MyCustomService:
+    autowire: true
+    autoconfigure: true
+
+  Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\TestProviderInterface:
+    '@Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\ExternalApi'
