@@ -46,9 +46,5 @@ class Kernel extends BaseKernel
             'test' => true,
             'secret' => '',
         ]);
-
-        $container->extension('dbp_relay_greenlight_connector_campusonline', [
-            'secret_token' => 'secret-test',
-        ]);
     }
 }
