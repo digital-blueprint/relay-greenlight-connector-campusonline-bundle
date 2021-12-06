@@ -6,7 +6,9 @@
         "php": "^7.3",
         "ext-json": "*",
         "api-platform/core": "^2.5",
+        "dbp/campusonline-api": "^0.1.0",
         "dbp/relay-core-bundle": "^0.1.11",
+        "dbp/relay-greenlight-bundle": "dev-main",
         "symfony/framework-bundle": "^5.2"
     },
     "require-dev": {

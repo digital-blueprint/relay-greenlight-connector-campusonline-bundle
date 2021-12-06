@@ -1,11 +1,13 @@
 services:
-  Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\ExternalApi:
+  Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\LdapService:
     autowire: true
     autoconfigure: true
 
-  Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\MyCustomService:
+  Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\CampusonlineService:
     autowire: true
     autoconfigure: true
 
-  Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\TestProviderInterface:
-    '@Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\ExternalApi'
+  Dbp\Relay\GreenlightConnectorCampusonlineBundle\Command\PictureFetchCommand:
+    public: false
+    autowire: true
+    autoconfigure: true
