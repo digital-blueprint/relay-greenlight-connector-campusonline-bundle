@@ -33,7 +33,7 @@ See [Generate DBP Symfony bundle](https://dbp-demo.tugraz.at/api-docs/naming.htm
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@gitlab.tugraz.at:dbp/relay/dbp-relay-greenlight-connector-campusonline-bundle.git"
+            "url": "git@gitlab.tugraz.at:dbp/greenlight/dbp-relay-greenlight-connector-campusonline-bundle.git"
         }
     ],
 ```
