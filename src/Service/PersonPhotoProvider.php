@@ -19,11 +19,17 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
     /**
      * @var CampusonlineService
      */
-    private $service;
+    private $campusonlineService;
 
-    public function __construct(CampusonlineService $service)
+    /**
+     * @var LdapService
+     */
+    private $ldapService;
+
+    public function __construct(CampusonlineService $campusonlineService, LdapService $ldapService)
     {
-        $this->service = $service;
+        $this->campusonlineService = $campusonlineService;
+        $this->ldapService = $ldapService;
     }
 
     /**
@@ -35,7 +41,7 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
     {
         $ident = $person->getExtraData('tug-co-obfuscated-c-ident');
         try {
-            $cards = $this->service->getCardsForIdent($ident);
+            $cards = $this->campusonlineService->getCardsForIdent($ident);
         } catch (UCardException $e) {
             $this->logger->error('Cards could not be fetched: '.$e->getMessage());
 
@@ -81,7 +87,7 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
         $card = reset($cardList);
 
         try {
-            $pic = $this->service->getCardPicture($card);
+            $pic = $this->campusonlineService->getCardPicture($card);
 
             return $pic->content;
         } catch (UCardException $e) {
