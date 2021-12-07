@@ -12,6 +12,7 @@ You can install the bundle directly from [packagist.org](https://packagist.org/p
 ```bash
 composer require dbp/relay-greenlight-connector-campusonline-bundle=dev-main
 ```
+
 ## Integration into the API Server
 
 * Add the necessary bundles to your `config/bundles.php`:
