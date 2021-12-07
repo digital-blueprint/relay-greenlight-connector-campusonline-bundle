@@ -1,55 +1,25 @@
 # DbpRelayGreenlightConnectorCampusonlineBundle
 
-This Symfony bundle can be used as a template for creating new bundles for the
-DBP Relay project.
+[GitLab](https://gitlab.tugraz.at/dbp/greenlight/dbp-relay-greenlight-connector-campusonline-bundle) | [Packagist](https://packagist.org/packages/dbp/relay-greenlight-connector-campusonline-bundle)
 
-When including this bundle into your API server it will gain the following
-features:
+This bundle fetches images for [DbpRelayGreenlightBundle](https://gitlab.tugraz.at/dbp/greenlight/dbp-relay-greenlight-bundle)
+from CampusOnline, while retrieving the `co-obfuscated-c-ident` from LDAP.
 
-* A custom `./bin/console` command
-* An example entity
-* Various HTTP methods implemented for that entity
+## Bundle installation
 
-## TL;DR
+You can install the bundle directly from [packagist.org](https://packagist.org/packages/dbp/relay-greenlight-bundle).
 
-The quickest way to make use of this template bundle is to feed your desired names
-to one command and generate a ready-to-use bundle with the correct naming.
-
-See [Generate DBP Symfony bundle](https://dbp-demo.tugraz.at/api-docs/naming.html#generate-dbp-symfony-bundle) for more information.
-
-
-## Using the Bundle as a Template
-
-* Copy the repo contents
-* Adjust the package name in `composer.json`
-* Invent a new PHP namespace and adjust it in all PHP files
-* Rename `src/DbpRelayGreenlightConnectorCampusonlineBundle` and `DependencyInjection/DbpRelayGreenlightConnectorCampusonlineExtension` to match the new project name
-
-## Integration into the API Server
-
-* Add the repository to your composer.json:
-
-```json
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@gitlab.tugraz.at:dbp/greenlight/dbp-relay-greenlight-connector-campusonline-bundle.git"
-        }
-    ],
-```
-
-* Add the bundle package as a dependency:
-
-```
+```bash
 composer require dbp/relay-greenlight-connector-campusonline-bundle=dev-main
 ```
+## Integration into the API Server
 
-* Add the bundle to your `config/bundles.php`:
+* Add the necessary bundles to your `config/bundles.php`:
 
 ```php
 ...
 Dbp\Relay\GreenlightConnectorCampusonlineBundle\DbpRelayGreenlightConnectorCampusonlineBundle::class => ['all' => true],
-DBP\API\CoreBundle\DbpCoreBundle::class => ['all' => true],
+Dbp\Relay\CoreBundle\DbpRelayCoreBundle::class => ['all' => true],
 ];
 ```
 
@@ -65,15 +35,31 @@ content:
 
 ```yaml
 dbp_relay_greenlight_connector_campusonline:
-  secret_token: 42
-  # secret_token: '%env(SECRET_TOKEN)%'
+  campusonline:
+    # The base URL of the CO instance
+    api_url:              '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_API_URL)%' # Example: 'https://online.mycampus.org/campus_online'
+
+    # The OAuth2 client ID
+    client_id:            '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_CLIENT_ID)%' # Example: my-client
+
+    # The OAuth2 client secret
+    client_secret:        '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_CLIENT_SECRET)%' # Example: my-secret
+
+    # The dataservice name of the ucardfoto service in case the default isn't used
+    dataservice:          '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_DATASERVICE, "brm.pm.extension.ucardfoto")%'
+  ldap:
+    host:                 '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_HOST)%'
+    base_dn:              '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_BASE_DN)%'
+    username:             '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_USERNAME)%'
+    password:             '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_PASSWORD)%'
+    identifier_attribute: '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_IDENTIFIER_ATTRIBUTE)%'
+    co_ident_nr_obfuscated_attribute: '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_CO_IDENT_NR_OBFUSCATED_ATTRIBUTE)%'
 ```
 
-The value gets read in `DbpRelayGreenlightConnectorCampusonlineExtension` and passed when creating the
-`MyCustomService` service.
+If you were using the [DBP API Server Template](https://gitlab.tugraz.at/dbp/relay/dbp-relay-server-template)
+as template for your Symfony application, then the configuration file should have already been generated for you.
 
-For more info on bundle configuration see
-https://symfony.com/doc/current/bundles/configuration.html
+For more info on bundle configuration see [Symfony bundles configuration](https://symfony.com/doc/current/bundles/configuration.html).
 
 ## Development & Testing
 
