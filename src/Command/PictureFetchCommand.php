@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\Command;
 
-use Dbp\CampusonlineApi\UCard\UCardException;
-use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\CampusonlineService;
+use Dbp\Relay\BasePersonBundle\Entity\Person;
+use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\PersonPhotoProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,43 +13,34 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PictureFetchCommand extends Command
 {
-    protected static $defaultName = 'dbp:picture-fetch';
+    protected static $defaultName = 'dbp:relay:greenlight-connector-campusonline:picture-fetch';
 
-    private $service;
+    private $provider;
 
-    public function __construct(CampusonlineService $service)
+    public function __construct(PersonPhotoProvider $provider)
     {
         parent::__construct();
 
-        $this->service = $service;
+        $this->provider = $provider;
     }
 
     protected function configure()
     {
-        $this->setDescription('Download pictures for a CO user');
-        $this->addArgument('ident', InputArgument::REQUIRED, 'The IDENT-NR-OBFUSCATED of the user.');
+        $this->setDescription('Download a picture for a CO user based on an API user ID');
+        $this->addArgument('user-id', InputArgument::REQUIRED, 'The API user ID');
     }
 
-    /**
-     * @throws UCardException
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $service = $this->service;
+        $provider = $this->provider;
+        $userId = $input->getArgument('user-id');
 
-        $ident = $input->getArgument('ident');
-        $cards = $service->getCardsForIdent($ident);
-        if (count($cards) === 0) {
-            $output->writeln("No pictures found for '$ident'");
-
-            return 0;
-        }
-        foreach ($cards as $card) {
-            $pic = $service->getCardPicture($card);
-            $filename = $card->ident.'-'.$card->cardType.'-'.$pic->id.'.jpg';
-            $output->writeln('Creating '.$filename);
-            file_put_contents($filename, $pic->content);
-        }
+        $person = new Person();
+        $person->setIdentifier($userId);
+        $data = $provider->getPhotoData($person);
+        $filename = urlencode($userId).'.jpg';
+        $output->writeln('Creating '.$filename);
+        file_put_contents($filename, $data);
 
         return 0;
     }

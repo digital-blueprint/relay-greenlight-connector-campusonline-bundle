@@ -9,16 +9,13 @@ use Adldap\Connections\Provider;
 use Adldap\Connections\ProviderInterface;
 use Adldap\Models\User;
 use Adldap\Query\Builder;
-use Dbp\Relay\BasePersonBundle\Entity\Person;
 use Dbp\Relay\CoreBundle\API\UserSessionInterface;
 use Dbp\Relay\CoreBundle\Exception\ApiError;
 use Dbp\Relay\CoreBundle\Helpers\Tools as CoreTools;
 use Psr\Cache\CacheItemPoolInterface;
-use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Cache\Psr16Cache;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
@@ -27,8 +24,6 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
 {
     use LoggerAwareTrait;
 
-    private $PAGESIZE = 50;
-
     /**
      * @var Adldap
      */
@@ -36,33 +31,18 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
 
     private $cachePool;
 
-    private $personCache;
-
     private $cacheTTL;
 
-    /**
-     * @var Person|null
-     */
-    private $currentPerson;
-
     private $providerConfig;
-
-    private $deploymentEnv;
-
-    private $locator;
-
-    private $params;
 
     private $identifierAttributeName;
 
     private $coIdentNrObfuscatedAttributeName;
 
-    public function __construct(ContainerInterface $locator, ParameterBagInterface $params)
+    public function __construct()
     {
         $this->ad = new Adldap();
         $this->cacheTTL = 0;
-        $this->params = $params;
-        $this->locator = $locator;
     }
 
     public function setConfig(array $config)
@@ -75,8 +55,8 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
             'use_tls' => true,
         ];
 
-        $this->identifierAttributeName = $config['identifier_attribute'] ?? 'cn';
-        $this->coIdentNrObfuscatedAttributeName = $config['co_ident_nr_obfuscated_attribute_name'] ?? '';
+        $this->identifierAttributeName = $config['identifier_attribute'] ?? '';
+        $this->coIdentNrObfuscatedAttributeName = $config['co_ident_nr_obfuscated_attribute'] ?? '';
     }
 
     public function setLDAPCache(?CacheItemPoolInterface $cachePool, int $ttl)
@@ -115,7 +95,7 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
         return $builder;
     }
 
-    public function getCoIdentNrObfuscated(string $identifier): ?User
+    public function getCoIdentNrObfuscated(string $identifier): string
     {
         try {
             $provider = $this->getProvider();
@@ -125,8 +105,7 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
             $user = $builder
                 ->where('objectClass', '=', $provider->getSchema()->person())
                 ->whereEquals($this->identifierAttributeName, $identifier)
-                ->first()
-                ->getFirstAttribute($this->coIdentNrObfuscatedAttributeName);
+                ->first();
 
             if ($user === null) {
                 throw new NotFoundHttpException(sprintf("Person with id '%s' could not be found!", $identifier));

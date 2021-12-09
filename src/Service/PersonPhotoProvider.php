@@ -39,7 +39,7 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
      */
     public function getPhotoData(Person $person): string
     {
-        $ident = $person->getExtraData('tug-co-obfuscated-c-ident');
+        $ident = $this->ldapService->getCoIdentNrObfuscated($person->getIdentifier());
         try {
             $cards = $this->campusonlineService->getCardsForIdent($ident);
         } catch (UCardException $e) {

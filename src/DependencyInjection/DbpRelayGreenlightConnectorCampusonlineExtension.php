@@ -26,14 +26,8 @@ class DbpRelayGreenlightConnectorCampusonlineExtension extends ConfigurableExten
         $ldapCache->setPublic(true);
         $ldapCache->addTag('cache.pool');
 
-        $def = $container->register('dbp_api.cache.greenlight_connector_campusonline.campus_online', FilesystemAdapter::class);
-        $def->setArguments(['core-campus-online', 60, '%kernel.cache_dir%/dbp/greenlight-connector-campusonline-campus-online']);
-        $def->setPublic(true);
-        $def->addTag('cache.pool');
-
-//        $definition = $container->getDefinition('Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\CampusOnline\UserImageApi');
-//        $definition->addMethodCall('setCache', [$def, 3600]);
-//        $definition->addMethodCall('setConfig', [$mergedConfig['campus_online'] ?? []]);
+        $definition = $container->getDefinition('Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\CampusonlineService');
+        $definition->addMethodCall('setConfig', [$mergedConfig['campusonline'] ?? []]);
 
         $definition = $container->getDefinition('Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\LdapService');
         $definition->addMethodCall('setConfig', [$mergedConfig['ldap'] ?? []]);
