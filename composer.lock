@@ -515,7 +515,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.tugraz.at/dbp/greenlight/dbp-relay-greenlight-bundle",
-                "reference": "26c934d5bd0786c109232bd7b5d58016f8a9111b"
+                "reference": "723031ed6ff72cc0bd7f3b1564590777b7345692"
             },
             "require": {
                 "api-platform/core": "^2.5",
@@ -554,7 +554,7 @@
             "license": [
                 "AGPL-3.0-or-later"
             ],
-            "time": "2021-12-11T00:19:49+00:00"
+            "time": "2021-12-13T00:15:22+00:00"
         },
         {
             "name": "doctrine/annotations",
