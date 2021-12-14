@@ -16,5 +16,10 @@ services:
     autowire: true
     autoconfigure: true
 
+  Dbp\Relay\GreenlightConnectorCampusonlineBundle\Command\CheckHealthCommand:
+    public: false
+    autowire: true
+    autoconfigure: true
+
   Dbp\Relay\GreenlightBundle\API\PersonPhotoProviderInterface:
     '@Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\PersonPhotoProvider'

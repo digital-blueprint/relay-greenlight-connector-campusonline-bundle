@@ -59,6 +59,13 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
         $this->coIdentNrObfuscatedAttributeName = $config['co_ident_nr_obfuscated_attribute'] ?? '';
     }
 
+    public function checkConnection()
+    {
+        $provider = $this->getProvider();
+        $builder = $this->getCachedBuilder($provider);
+        $builder->first();
+    }
+
     public function setLDAPCache(?CacheItemPoolInterface $cachePool, int $ttl)
     {
         $this->cachePool = $cachePool;

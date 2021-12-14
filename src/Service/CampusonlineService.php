@@ -61,6 +61,12 @@ class CampusonlineService
         }
     }
 
+    public function checkConnection()
+    {
+        $this->fetchServiceTokenIfNeeded();
+        $this->service->getCardsForIdent('thisisnotarealidentjustfortesting');
+    }
+
     /**
      * Returns the cards (photos) of an ident.
      *
