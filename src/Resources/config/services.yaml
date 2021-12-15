@@ -16,8 +16,7 @@ services:
     autowire: true
     autoconfigure: true
 
-  Dbp\Relay\GreenlightConnectorCampusonlineBundle\Command\CheckHealthCommand:
-    public: false
+  Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\HealthCheck:
     autowire: true
     autoconfigure: true
 
