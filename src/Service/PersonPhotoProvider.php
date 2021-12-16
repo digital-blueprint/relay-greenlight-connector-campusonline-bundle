@@ -6,7 +6,7 @@ namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service;
 
 use Dbp\CampusonlineApi\UCard\UCardException;
 use Dbp\CampusonlineApi\UCard\UCardType;
-use Dbp\Relay\BasePersonBundle\Entity\Person;
+use Dbp\Relay\BasePersonBundle\API\PersonProviderInterface;
 use Dbp\Relay\GreenlightBundle\API\PersonPhotoProviderInterface;
 use Dbp\Relay\GreenlightBundle\Exception\PhotoServiceException;
 use Psr\Log\LoggerAwareInterface;
@@ -26,10 +26,16 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
      */
     private $ldapService;
 
-    public function __construct(CampusonlineService $campusonlineService, LdapService $ldapService)
+    /**
+     * @var PersonProviderInterface
+     */
+    private $personProvider;
+
+    public function __construct(CampusonlineService $campusonlineService, LdapService $ldapService, PersonProviderInterface $personProvider)
     {
         $this->campusonlineService = $campusonlineService;
         $this->ldapService = $ldapService;
+        $this->personProvider = $personProvider;
     }
 
     /**
@@ -37,8 +43,16 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
      *
      * @throws PhotoServiceException
      */
-    public function getPhotoData(Person $person): string
+    public function getPhotoDataForCurrentPerson(): string
     {
+        try {
+            $person = $this->personProvider->getCurrentPerson();
+        } catch (NotFoundHttpException $e) {
+            $this->logger->error('Current person could not be found: '.$e->getMessage());
+
+            throw new PhotoServiceException($e->getMessage());
+        }
+
         $ident = $this->ldapService->getCoIdentNrObfuscated($person->getIdentifier());
         try {
             $cards = $this->campusonlineService->getCardsForIdent($ident);
