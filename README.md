@@ -47,7 +47,7 @@ dbp_relay_greenlight_connector_campusonline:
     client_secret:        '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_CLIENT_SECRET)%' # Example: my-secret
 
     # The dataservice name of the ucardfoto service in case the default isn't used
-    dataservice:          '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_DATASERVICE, "brm.pm.extension.ucardfoto")%'
+    dataservice:          '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_DATASERVICE)%'
   ldap:
     host:                 '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_HOST)%'
     base_dn:              '%env(GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_BASE_DN)%'
