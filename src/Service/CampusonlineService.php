@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service;
 
-use Dbp\CampusonlineApi\UCard\UCard;
-use Dbp\CampusonlineApi\UCard\UCardAPI;
-use Dbp\CampusonlineApi\UCard\UCardException;
-use Dbp\CampusonlineApi\UCard\UCardPicture;
-use GuzzleHttp\Exception\GuzzleException;
+use Dbp\CampusonlineApi\Rest\Api;
+use Dbp\CampusonlineApi\Rest\ApiException;
+use Dbp\CampusonlineApi\Rest\UCard\UCard;
+use Dbp\CampusonlineApi\Rest\UCard\UCardPicture;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 
-class CampusonlineService
+class CampusonlineService implements LoggerAwareInterface
 {
     /**
-     * @var UCardAPI
+     * @var Api
      */
     private $service;
 
-    private $serviceHasToken = false;
+    private $logger;
 
     private $config;
 
     public function __construct()
     {
-        $this->service = new UCardAPI();
         $this->config = [];
     }
 
@@ -32,39 +32,41 @@ class CampusonlineService
         $this->config = $config;
     }
 
-    /**
-     * @throws UCardException
-     */
-    private function fetchServiceTokenIfNeeded()
+    public function setLogger(LoggerInterface $logger)
     {
-        if ($this->serviceHasToken) {
-            return;
+        $this->logger = $logger;
+        if ($this->service !== null) {
+            $this->service->setLogger($logger);
+        }
+    }
+
+    /**
+     * @throws ApiException
+     */
+    private function getUCardApi()
+    {
+        if ($this->service === null) {
+            $config = $this->config;
+            $clientId = $config['client_id'] ?? '';
+            $clientSecret = $config['client_secret'] ?? '';
+            $baseUrl = $config['api_url'] ?? '';
+            $dataService = $config['dataservice'] ?? '';
+
+            $api = new Api($baseUrl, $clientId, $clientSecret);
+            $api->addDataServiceOverride('brm.pm.extension.ucardfoto', $dataService);
+            $this->service = $api;
+            if ($this->logger !== null) {
+                $api->setLogger($this->logger);
+            }
         }
 
-        $config = $this->config;
-
-        $clientId = $config['client_id'] ?? '';
-        $clientSecret = $config['client_secret'] ?? '';
-        $baseUrl = $config['api_url'] ?? '';
-        $dataService = $config['dataservice'] ?? '';
-
-        $this->service->setBaseUrl($baseUrl);
-        if ($dataService !== '') {
-            $this->service->setDataService($dataService);
-        }
-
-        try {
-            $this->service->fetchToken($clientId, $clientSecret);
-            $this->serviceHasToken = true;
-        } catch (GuzzleException $e) {
-        } catch (\JsonException $e) {
-        }
+        return $this->service->UCard();
     }
 
     public function checkConnection()
     {
-        $this->fetchServiceTokenIfNeeded();
-        $this->service->getCardsForIdent('thisisnotarealidentjustfortesting');
+        $ucard = $this->getUCardApi();
+        $ucard->getCardsForIdentIdObfuscated('thisisnotarealidentjustfortesting');
     }
 
     /**
@@ -72,22 +74,22 @@ class CampusonlineService
      *
      * @return UCard[]
      *
-     * @throws UCardException
+     * @throws ApiException
      */
     public function getCardsForIdent(string $ident, ?string $cardType = null): array
     {
-        $this->fetchServiceTokenIfNeeded();
+        $ucard = $this->getUCardApi();
 
-        return $this->service->getCardsForIdent($ident, $cardType);
+        return $ucard->getCardsForIdentIdObfuscated($ident, $cardType);
     }
 
     /**
-     * @throws UCardException
+     * @throws ApiException
      */
     public function getCardPicture(UCard $card): UCardPicture
     {
-        $this->fetchServiceTokenIfNeeded();
+        $ucard = $this->getUCardApi();
 
-        return $this->service->getCardPicture($card);
+        return $ucard->getCardPicture($card);
     }
 }

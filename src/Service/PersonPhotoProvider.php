@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service;
 
-use Dbp\CampusonlineApi\UCard\UCardException;
-use Dbp\CampusonlineApi\UCard\UCardType;
+use Dbp\CampusonlineApi\Rest\ApiException;
+use Dbp\CampusonlineApi\Rest\UCard\UCardType;
 use Dbp\Relay\BasePersonBundle\API\PersonProviderInterface;
 use Dbp\Relay\GreenlightBundle\API\PersonPhotoProviderInterface;
 use Dbp\Relay\GreenlightBundle\Exception\PhotoServiceException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareInterface
 {
@@ -38,25 +39,12 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
         $this->personProvider = $personProvider;
     }
 
-    /**
-     * Returns the photo of a person as binary data.
-     *
-     * @throws PhotoServiceException
-     */
-    public function getPhotoDataForCurrentUser(): string
+    public function getPhotoDataForUser(string $userId): string
     {
-        try {
-            $person = $this->personProvider->getCurrentPerson();
-        } catch (NotFoundHttpException $e) {
-            $this->logger->error('Current person could not be found: '.$e->getMessage());
-
-            throw new PhotoServiceException($e->getMessage());
-        }
-
-        $ident = $this->ldapService->getCoIdentNrObfuscated($person->getIdentifier());
+        $ident = $this->ldapService->getCoIdentNrObfuscated($userId);
         try {
             $cards = $this->campusonlineService->getCardsForIdent($ident);
-        } catch (UCardException $e) {
+        } catch (ApiException $e) {
             $this->logger->error('Cards could not be fetched: '.$e->getMessage());
 
             throw new PhotoServiceException($e->getMessage());
@@ -102,12 +90,30 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
 
         try {
             $pic = $this->campusonlineService->getCardPicture($card);
-
-            return $pic->content;
-        } catch (UCardException $e) {
+        } catch (ApiException $e) {
             $this->logger->error('Card picture could not be fetched: '.$e->getMessage());
 
             throw new PhotoServiceException($e->getMessage());
         }
+
+        return $pic->content;
+    }
+
+    /**
+     * Returns the photo of a person as binary data.
+     *
+     * @throws PhotoServiceException
+     */
+    public function getPhotoDataForCurrentUser(): string
+    {
+        try {
+            $person = $this->personProvider->getCurrentPerson();
+        } catch (NotFoundHttpException $e) {
+            $this->logger->error('Current person could not be found: '.$e->getMessage());
+
+            throw new PhotoServiceException($e->getMessage());
+        }
+
+        return $this->getPhotoDataForUser($person->getIdentifier());
     }
 }

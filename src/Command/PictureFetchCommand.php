@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\Command;
 
-use Dbp\Relay\BasePersonBundle\Entity\Person;
 use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\PersonPhotoProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -35,9 +34,7 @@ class PictureFetchCommand extends Command
         $provider = $this->provider;
         $userId = $input->getArgument('user-id');
 
-        $person = new Person();
-        $person->setIdentifier($userId);
-        $data = $provider->getPhotoData($person);
+        $data = $provider->getPhotoDataForUser($userId);
         $filename = urlencode($userId).'.jpg';
         $output->writeln('Creating '.$filename);
         file_put_contents($filename, $data);
