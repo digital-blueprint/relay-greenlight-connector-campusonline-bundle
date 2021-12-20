@@ -43,7 +43,7 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
      *
      * @throws PhotoServiceException
      */
-    public function getPhotoDataForCurrentPerson(): string
+    public function getPhotoDataForCurrentUser(): string
     {
         try {
             $person = $this->personProvider->getCurrentPerson();
