@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19dc579f136b0afacf690c2e796d9643",
+    "content-hash": "daf1f0dbba066535eec21b18c319695e",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -448,11 +448,11 @@
         },
         {
             "name": "dbp/relay-core-bundle",
-            "version": "v0.1.26",
+            "version": "v0.1.27",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.tugraz.at/dbp/relay/dbp-relay-core-bundle",
-                "reference": "c0262c7e9771335cfffe5068e0cd4677d29bfe76"
+                "reference": "dcbdc97bfdedbecb532fc8885a26d72b7362b78b"
             },
             "require": {
                 "api-platform/core": "^2.6.6",
@@ -508,7 +508,7 @@
             "license": [
                 "AGPL-3.0-or-later"
             ],
-            "time": "2021-12-14T12:59:26+00:00"
+            "time": "2021-12-21T14:46:32+00:00"
         },
         {
             "name": "dbp/relay-greenlight-bundle",
