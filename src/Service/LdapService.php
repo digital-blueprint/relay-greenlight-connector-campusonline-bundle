@@ -39,6 +39,8 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
 
     private $coIdentNrObfuscatedAttributeName;
 
+    private $coPersonNrAttributeName;
+
     public function __construct()
     {
         $this->ad = new Adldap();
@@ -57,6 +59,7 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
 
         $this->identifierAttributeName = $config['identifier_attribute'] ?? '';
         $this->coIdentNrObfuscatedAttributeName = $config['co_ident_nr_obfuscated_attribute'] ?? '';
+        $this->coPersonNrAttributeName = $config['co_person_nr_attribute'] ?? '';
     }
 
     public function checkConnection()

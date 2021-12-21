@@ -63,6 +63,8 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('co_ident_nr_obfuscated_attribute')
                 ->end()
+                ->scalarNode('co_person_nr_attribute')
+                ->end()
             ->end();
 
         $treeBuilder = new TreeBuilder('dbp_relay_greenlight_connector_campusonline');
