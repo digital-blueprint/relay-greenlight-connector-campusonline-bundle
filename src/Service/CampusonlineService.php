@@ -50,10 +50,10 @@ class CampusonlineService implements LoggerAwareInterface
             $clientId = $config['client_id'] ?? '';
             $clientSecret = $config['client_secret'] ?? '';
             $baseUrl = $config['api_url'] ?? '';
-            $dataService = $config['dataservice'] ?? '';
-
             $api = new Api($baseUrl, $clientId, $clientSecret);
-            $api->addDataServiceOverride('brm.pm.extension.ucardfoto', $dataService);
+            foreach ($this->config['dataservice_override'] as $entry) {
+                $api->addDataServiceOverride($entry['name'], $entry['replacement']);
+            }
             $this->service = $api;
             if ($this->logger !== null) {
                 $api->setLogger($this->logger);

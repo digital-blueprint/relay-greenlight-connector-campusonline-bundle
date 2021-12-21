@@ -10,8 +10,26 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
+        $treeBuilder = new TreeBuilder('dataservice_override');
+        $dsNode = $treeBuilder->getRootNode()
+            ->info('An optional mapping of dataservice IDs to their replacements')
+            ->arrayPrototype()
+                ->children()
+                    ->scalarNode('name')
+                        ->info('The name of the dataservice to override')
+                        ->example('brm.pm.extension.ucardfoto')
+                        ->isRequired()
+                    ->end()
+                    ->scalarNode('replacement')
+                        ->info('The replacement dataservice')
+                        ->example('loc_locinucfotods.ucardfoto')
+                        ->isRequired()
+                    ->end()
+                ->end()
+            ->end();
+
         $coBuilder = new TreeBuilder('campusonline');
         $coNode = $coBuilder->getRootNode()
             ->children()
@@ -27,11 +45,8 @@ class Configuration implements ConfigurationInterface
                     ->info('The OAuth2 client secret')
                     ->example('my-secret')
                 ->end()
-                ->scalarNode('dataservice')
-                    ->info('The dataservice name of the ucardfoto service in case the default isn\'t used')
-                    ->defaultValue('brm.pm.extension.ucardfoto')
-                ->end()
-            ->end();
+            ->end()
+            ->append($dsNode);
 
         $ldapBuilder = new TreeBuilder('ldap');
         $ldapNode = $ldapBuilder->getRootNode()

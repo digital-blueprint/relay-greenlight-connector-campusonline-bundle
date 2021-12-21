@@ -14,3 +14,5 @@ parameters:
     ignoreErrors:
         - message: '#.*NodeDefinition::children.*#'
           path: ./src/DependencyInjection
+        - message: '#.*NodeDefinition::arrayPrototype.*#'
+          path: ./src/DependencyInjection
