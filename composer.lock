@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f1bea7ae3f56520f943617d24c4bc371",
+    "content-hash": "145d30215093426b1e5975d53f2d6e00",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -512,7 +512,7 @@
         },
         {
             "name": "dbp/relay-greenlight-bundle",
-            "version": "dev-main",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.tugraz.at/dbp/greenlight/dbp-relay-greenlight-bundle",
@@ -544,7 +544,6 @@
                 "symfony/phpunit-bridge": "^5.2",
                 "vimeo/psalm": "^4.2.1"
             },
-            "default-branch": true,
             "type": "symfony-bundle",
             "autoload": {
                 "psr-4": {
@@ -11149,9 +11148,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "dbp/relay-greenlight-bundle": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
