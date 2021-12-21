@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7326299227d6a18a830c6b11092e8941",
+    "content-hash": "f1bea7ae3f56520f943617d24c4bc371",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -448,11 +448,11 @@
         },
         {
             "name": "dbp/relay-core-bundle",
-            "version": "dev-main",
+            "version": "v0.1.26",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.tugraz.at/dbp/relay/dbp-relay-core-bundle",
-                "reference": "3321b36e1b8526cdb0afed1a53a880d10d0d52b3"
+                "reference": "c0262c7e9771335cfffe5068e0cd4677d29bfe76"
             },
             "require": {
                 "api-platform/core": "^2.6.6",
@@ -491,7 +491,6 @@
                 "symfony/phpunit-bridge": "^5.3",
                 "vimeo/psalm": "^4.4"
             },
-            "default-branch": true,
             "type": "symfony-bundle",
             "extra": {
                 "hooks": {
@@ -509,7 +508,7 @@
             "license": [
                 "AGPL-3.0-or-later"
             ],
-            "time": "2021-12-15T15:38:02+00:00"
+            "time": "2021-12-14T12:59:26+00:00"
         },
         {
             "name": "dbp/relay-greenlight-bundle",
@@ -11148,17 +11147,9 @@
             "time": "2015-12-17T08:42:14+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "dbp/relay-core-bundle",
-            "version": "dev-main",
-            "alias": "0.1.25",
-            "alias_normalized": "0.1.25.0"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "dbp/relay-core-bundle": 20,
         "dbp/relay-greenlight-bundle": 20
     },
     "prefer-stable": false,
