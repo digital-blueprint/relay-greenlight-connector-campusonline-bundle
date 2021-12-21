@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service;
 
 use Dbp\Relay\CoreBundle\HealthCheck\CheckInterface;
+use Dbp\Relay\CoreBundle\HealthCheck\CheckOptions;
 use Dbp\Relay\CoreBundle\HealthCheck\CheckResult;
 
 class HealthCheck implements CheckInterface
@@ -53,7 +54,7 @@ class HealthCheck implements CheckInterface
         return $result;
     }
 
-    public function check(): array
+    public function check(CheckOptions $options): array
     {
         $results = [];
         $results[] = $this->checkLDAPConnection();
