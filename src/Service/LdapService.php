@@ -61,11 +61,23 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
         ];
 
         $this->identifierAttributeName = $config['identifier_attribute'] ?? null;
+        if ($this->identifierAttributeName === '') {
+            $this->identifierAttributeName = null;
+        }
 
         $coAttributes = $config['co_identifier_attributes'];
         $this->coIdentNrObfuscatedAttributeName = $coAttributes['ident_nr_obfuscated'] ?? null;
+        if ($this->coIdentNrObfuscatedAttributeName === '') {
+            $this->coIdentNrObfuscatedAttributeName = null;
+        }
         $this->coIdentNrAttributeName = $coAttributes['ident_nr'] ?? null;
+        if ($this->coIdentNrAttributeName === '') {
+            $this->coIdentNrAttributeName = null;
+        }
         $this->coPersonNrAttributeName = $coAttributes['person_nr'] ?? null;
+        if ($this->coPersonNrAttributeName === '') {
+            $this->coPersonNrAttributeName = null;
+        }
     }
 
     public function checkConnection()
