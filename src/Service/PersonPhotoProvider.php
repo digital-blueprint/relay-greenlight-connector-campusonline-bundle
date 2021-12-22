@@ -41,9 +41,10 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
 
     public function getPhotoDataForUser(string $userId): string
     {
-        $ident = $this->ldapService->getCoIdentNrObfuscated($userId);
+        $ident = $this->ldapService->getCoIdent($userId);
+
         try {
-            $cards = $this->campusonlineService->getCardsForIdent($ident);
+            $cards = $this->campusonlineService->getCardsForCoIdent($ident);
         } catch (ApiException $e) {
             $this->logger->error('Cards could not be fetched: '.$e->getMessage());
 

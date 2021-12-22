@@ -48,6 +48,17 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->append($dsNode);
 
+        $treeBuilder = new TreeBuilder('co_identifier_attributes');
+        $coAttrNode = $treeBuilder->getRootNode()
+            ->children()
+                ->scalarNode('ident_nr_obfuscated')
+                ->end()
+                ->scalarNode('ident_nr')
+                ->end()
+                ->scalarNode('person_nr')
+                ->end()
+            ->end();
+
         $ldapBuilder = new TreeBuilder('ldap');
         $ldapNode = $ldapBuilder->getRootNode()
             ->children()
@@ -61,10 +72,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('identifier_attribute')
                 ->end()
-                ->scalarNode('co_ident_nr_obfuscated_attribute')
-                ->end()
-                ->scalarNode('co_person_nr_attribute')
-                ->end()
+                ->append($coAttrNode)
             ->end();
 
         $treeBuilder = new TreeBuilder('dbp_relay_greenlight_connector_campusonline');

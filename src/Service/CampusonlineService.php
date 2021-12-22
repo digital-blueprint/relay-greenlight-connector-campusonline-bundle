@@ -40,10 +40,7 @@ class CampusonlineService implements LoggerAwareInterface
         }
     }
 
-    /**
-     * @throws ApiException
-     */
-    private function getUCardApi()
+    private function getApi(): Api
     {
         if ($this->service === null) {
             $config = $this->config;
@@ -60,12 +57,12 @@ class CampusonlineService implements LoggerAwareInterface
             }
         }
 
-        return $this->service->UCard();
+        return $this->service;
     }
 
     public function checkConnection()
     {
-        $ucard = $this->getUCardApi();
+        $ucard = $this->getApi()->UCard();
         $ucard->getCardsForIdentIdObfuscated('thisisnotarealidentjustfortesting');
     }
 
@@ -76,11 +73,49 @@ class CampusonlineService implements LoggerAwareInterface
      *
      * @throws ApiException
      */
-    public function getCardsForIdent(string $ident, ?string $cardType = null): array
+    public function getCardsForIdentIdObfuscated(string $ident, ?string $cardType = null): array
     {
-        $ucard = $this->getUCardApi();
+        $ucard = $this->getApi()->UCard();
 
         return $ucard->getCardsForIdentIdObfuscated($ident, $cardType);
+    }
+
+    public function getIdentIdObfuscatedForCoIdent(CoIdent $ident): ?string
+    {
+        // If we got the identIdObfuscated from LDAP just return it
+        $identIdObfuscated = $ident->identIdObfuscated;
+        if ($identIdObfuscated !== null) {
+            return $identIdObfuscated;
+        }
+
+        // Otherwise, call the student API
+        $student = $this->getApi()->Student();
+        if ($ident->identId !== null) {
+            $data = $student->getStudentDataByIdentId($ident->identId);
+            if (count($data) > 0) {
+                return $data[0]->identIdObfuscated;
+            }
+        }
+        if ($ident->personId !== null) {
+            $data = $student->getStudentDataByPersonId($ident->personId);
+            if (count($data) > 0) {
+                return $data[0]->identIdObfuscated;
+            }
+        }
+
+        return null;
+    }
+
+    public function getCardsForCoIdent(CoIdent $ident, ?string $cardType = null): array
+    {
+        $identIdObfuscated = $this->getIdentIdObfuscatedForCoIdent($ident);
+        if ($identIdObfuscated === null) {
+            return [];
+        }
+
+        $ucard = $this->getApi()->UCard();
+
+        return $ucard->getCardsForIdentIdObfuscated($identIdObfuscated, $cardType);
     }
 
     /**
@@ -88,7 +123,7 @@ class CampusonlineService implements LoggerAwareInterface
      */
     public function getCardPicture(UCard $card): UCardPicture
     {
-        $ucard = $this->getUCardApi();
+        $ucard = $this->getApi()->UCard();
 
         return $ucard->getCardPicture($card);
     }

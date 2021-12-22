@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service;
 
 use Adldap\Adldap;
+use Adldap\AdldapException;
 use Adldap\Connections\Provider;
 use Adldap\Connections\ProviderInterface;
 use Adldap\Models\User;
@@ -41,6 +42,8 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
 
     private $coPersonNrAttributeName;
 
+    private $coIdentNrAttributeName;
+
     public function __construct()
     {
         $this->ad = new Adldap();
@@ -57,9 +60,12 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
             'use_tls' => true,
         ];
 
-        $this->identifierAttributeName = $config['identifier_attribute'] ?? '';
-        $this->coIdentNrObfuscatedAttributeName = $config['co_ident_nr_obfuscated_attribute'] ?? '';
-        $this->coPersonNrAttributeName = $config['co_person_nr_attribute'] ?? '';
+        $this->identifierAttributeName = $config['identifier_attribute'] ?? null;
+
+        $coAttributes = $config['co_identifier_attributes'];
+        $this->coIdentNrObfuscatedAttributeName = $coAttributes['ident_nr_obfuscated'] ?? null;
+        $this->coIdentNrAttributeName = $coAttributes['ident_nr'] ?? null;
+        $this->coPersonNrAttributeName = $coAttributes['person_nr'] ?? null;
     }
 
     public function checkConnection()
@@ -105,8 +111,12 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
         return $builder;
     }
 
-    public function getCoIdentNrObfuscated(string $identifier): string
+    public function getCoIdent(string $identifier): CoIdent
     {
+        if ($this->identifierAttributeName === null) {
+            throw new \RuntimeException('identifier attribute not configured');
+        }
+
         try {
             $provider = $this->getProvider();
             $builder = $this->getCachedBuilder($provider);
@@ -116,16 +126,27 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
                 ->where('objectClass', '=', $provider->getSchema()->person())
                 ->whereEquals($this->identifierAttributeName, $identifier)
                 ->first();
-
-            if ($user === null) {
-                throw new NotFoundHttpException(sprintf("Person with id '%s' could not be found!", $identifier));
-            }
-
-            return $user->getFirstAttribute($this->coIdentNrObfuscatedAttributeName);
-        } catch (\Adldap\Auth\BindException $e) {
+        } catch (AdldapException $e) {
             // There was an issue binding / connecting to the server.
             throw new ApiError(Response::HTTP_BAD_GATEWAY, sprintf("Person with id '%s' could not be loaded! Message: %s", $identifier, CoreTools::filterErrorMessage($e->getMessage())));
         }
+
+        if ($user === null) {
+            throw new NotFoundHttpException(sprintf("Person with id '%s' could not be found!", $identifier));
+        }
+
+        $ident = new CoIdent();
+        if ($this->coIdentNrObfuscatedAttributeName !== null) {
+            $ident->identIdObfuscated = $user->getFirstAttribute($this->coIdentNrObfuscatedAttributeName);
+        }
+        if ($this->coIdentNrAttributeName !== null) {
+            $ident->identId = $user->getFirstAttribute($this->coIdentNrAttributeName);
+        }
+        if ($this->coPersonNrAttributeName !== null) {
+            $ident->personId = $user->getFirstAttribute($this->coPersonNrAttributeName);
+        }
+
+        return $ident;
     }
 
     public static function getSubscribedServices()
