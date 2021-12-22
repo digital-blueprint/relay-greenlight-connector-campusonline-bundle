@@ -87,6 +87,51 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
         $builder->first();
     }
 
+    public function checkHasRecords()
+    {
+        $provider = $this->getProvider();
+        $builder = $this->getCachedBuilder($provider);
+        $user = $builder->where('objectClass', '=', $provider->getSchema()->person())->first();
+        if ($user === null) {
+            throw new \RuntimeException('LDAP has no records');
+        }
+    }
+
+    public function checkAttributeExists(string $attribute): bool
+    {
+        $provider = $this->getProvider();
+        $builder = $this->getCachedBuilder($provider);
+
+        /** @var User $user */
+        $user = $builder
+            ->where('objectClass', '=', $provider->getSchema()->person())
+            ->whereHas($attribute)
+            ->first();
+
+        return $user !== null;
+    }
+
+    public function checkMissingAttributes()
+    {
+        $attributes = [
+            $this->identifierAttributeName,
+            $this->coIdentNrObfuscatedAttributeName,
+            $this->coIdentNrAttributeName,
+            $this->coPersonNrAttributeName,
+        ];
+
+        $missing = [];
+        foreach ($attributes as $attr) {
+            if ($attr !== null && !$this->checkAttributeExists($attr)) {
+                $missing[] = $attr;
+            }
+        }
+
+        if (count($missing) > 0) {
+            throw new \RuntimeException('The following LDAP attributes were not found: '.join(', ', $missing));
+        }
+    }
+
     public function setLDAPCache(?CacheItemPoolInterface $cachePool, int $ttl)
     {
         $this->cachePool = $cachePool;

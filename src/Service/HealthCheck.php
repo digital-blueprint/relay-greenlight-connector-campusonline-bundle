@@ -24,28 +24,13 @@ class HealthCheck implements CheckInterface
         return 'greenlight-campusonline-connector';
     }
 
-    private function checkLDAPConnection(): CheckResult
+    private function checkMethod(string $description, callable $func): CheckResult
     {
-        $result = new CheckResult('LDAP connection');
+        $result = new CheckResult($description);
         try {
-            $this->ldap->checkConnection();
+            $func();
         } catch (\Throwable $e) {
-            $result->set(CheckResult::STATUS_FAILURE, $e->getMessage());
-
-            return $result;
-        }
-        $result->set(CheckResult::STATUS_SUCCESS);
-
-        return $result;
-    }
-
-    private function checkCOConnection(): CheckResult
-    {
-        $result = new CheckResult('CO connection');
-        try {
-            $this->co->checkConnection();
-        } catch (\Throwable $e) {
-            $result->set(CheckResult::STATUS_FAILURE, $e->getMessage());
+            $result->set(CheckResult::STATUS_FAILURE, $e->getMessage(), ['exception' => $e]);
 
             return $result;
         }
@@ -57,8 +42,10 @@ class HealthCheck implements CheckInterface
     public function check(CheckOptions $options): array
     {
         $results = [];
-        $results[] = $this->checkLDAPConnection();
-        $results[] = $this->checkCOConnection();
+        $results[] = $this->checkMethod('Check if we can connect to the LDAP server', [$this->ldap, 'checkConnection']);
+        $results[] = $this->checkMethod('Check if the LDAP server contains records', [$this->ldap, 'checkHasRecords']);
+        $results[] = $this->checkMethod('Check if all configured LDAP attributes exist', [$this->ldap, 'checkMissingAttributes']);
+        $results[] = $this->checkMethod('Check if we can connect to the CAMPUSonline API', [$this->co, 'checkConnection']);
 
         return $results;
     }
