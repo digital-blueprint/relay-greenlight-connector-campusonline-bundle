@@ -10,7 +10,7 @@ from CampusOnline, while retrieving the `co-obfuscated-c-ident` from LDAP.
 You can install the bundle directly from [packagist.org](https://packagist.org/packages/dbp/relay-greenlight-bundle).
 
 ```bash
-composer require dbp/relay-greenlight-connector-campusonline-bundle=dev-main
+composer require dbp/relay-greenlight-connector-campusonline-bundle
 ```
 
 ## Integration into the API Server
