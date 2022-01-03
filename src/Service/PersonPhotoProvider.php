@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service;
 
 use Dbp\CampusonlineApi\Rest\ApiException;
+use Dbp\CampusonlineApi\Rest\UCard\UCard;
 use Dbp\CampusonlineApi\Rest\UCard\UCardType;
 use Dbp\Relay\BasePersonBundle\API\PersonProviderInterface;
 use Dbp\Relay\GreenlightBundle\API\PersonPhotoProviderInterface;
@@ -39,18 +40,13 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
         $this->personProvider = $personProvider;
     }
 
-    public function getPhotoDataForUser(string $userId): string
+    /**
+     * Returns the best usable card or null.
+     *
+     * @param UCard[] $cards
+     */
+    public static function selectCard(array $cards): ?UCard
     {
-        $ident = $this->ldapService->getCoIdent($userId);
-
-        try {
-            $cards = $this->campusonlineService->getCardsForCoIdent($ident);
-        } catch (ApiException $e) {
-            $this->logger->error('Cards could not be fetched: '.$e->getMessage());
-
-            throw new PhotoServiceException($e->getMessage());
-        }
-
         $cardList = [];
 
         foreach ($cards as $card) {
@@ -60,6 +56,11 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
             if ($card->isUpdatable) {
                 continue;
             }
+            // No photo, skip
+            if ($card->contentSize === 0) {
+                continue;
+            }
+            // If a user has multiple cards use the "most official" one first
             switch ($card->cardType) {
                 case UCardType::BA:
                     $cardList['a'] = $card;
@@ -80,14 +81,36 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
         }
 
         if (count($cardList) === 0) {
-            throw new PhotoServiceException('No cards available');
+            return null;
         }
 
         // sort by array key
         ksort($cardList);
 
         // get first item
-        $card = reset($cardList);
+        return reset($cardList);
+    }
+
+    public function getPhotoDataForUser(string $userId): string
+    {
+        $ident = $this->ldapService->getCoIdent($userId);
+
+        try {
+            $cards = $this->campusonlineService->getCardsForCoIdent($ident);
+        } catch (ApiException $e) {
+            $this->logger->error('Cards could not be fetched: '.$e->getMessage());
+
+            throw new PhotoServiceException($e->getMessage());
+        }
+
+        if (count($cards) === 0) {
+            throw new PhotoServiceException('No cards found');
+        }
+
+        $card = self::selectCard($cards);
+        if ($card === null) {
+            throw new PhotoServiceException('No suitable card found');
+        }
 
         try {
             $pic = $this->campusonlineService->getCardPicture($card);

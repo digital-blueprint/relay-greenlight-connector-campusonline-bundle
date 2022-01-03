@@ -106,6 +106,9 @@ class CampusonlineService implements LoggerAwareInterface
         return null;
     }
 
+    /**
+     * @return UCard[]
+     */
     public function getCardsForCoIdent(CoIdent $ident, ?string $cardType = null): array
     {
         $identIdObfuscated = $this->getIdentIdObfuscatedForCoIdent($ident);
