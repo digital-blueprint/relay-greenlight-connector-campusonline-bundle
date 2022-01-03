@@ -7,12 +7,11 @@ namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service;
 use Dbp\CampusonlineApi\Rest\ApiException;
 use Dbp\CampusonlineApi\Rest\UCard\UCard;
 use Dbp\CampusonlineApi\Rest\UCard\UCardType;
-use Dbp\Relay\BasePersonBundle\API\PersonProviderInterface;
+use Dbp\Relay\CoreBundle\API\UserSessionInterface;
 use Dbp\Relay\GreenlightBundle\API\PersonPhotoProviderInterface;
 use Dbp\Relay\GreenlightBundle\Exception\PhotoServiceException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareInterface
 {
@@ -29,15 +28,15 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
     private $ldapService;
 
     /**
-     * @var PersonProviderInterface
+     * @var UserSessionInterface
      */
-    private $personProvider;
+    private $userSession;
 
-    public function __construct(CampusonlineService $campusonlineService, LdapService $ldapService, PersonProviderInterface $personProvider)
+    public function __construct(CampusonlineService $campusonlineService, LdapService $ldapService, UserSessionInterface $userSession)
     {
         $this->campusonlineService = $campusonlineService;
         $this->ldapService = $ldapService;
-        $this->personProvider = $personProvider;
+        $this->userSession = $userSession;
     }
 
     /**
@@ -130,14 +129,11 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
      */
     public function getPhotoDataForCurrentUser(): string
     {
-        try {
-            $person = $this->personProvider->getCurrentPerson();
-        } catch (NotFoundHttpException $e) {
-            $this->logger->error('Current person could not be found: '.$e->getMessage());
-
-            throw new PhotoServiceException($e->getMessage());
+        $userId = $this->userSession->getUserIdentifier();
+        if ($userId === null) {
+            throw new PhotoServiceException('No user ID available');
         }
 
-        return $this->getPhotoDataForUser($person->getIdentifier());
+        return $this->getPhotoDataForUser($userId);
     }
 }
