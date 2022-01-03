@@ -80,7 +80,7 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
         }
 
         if (count($cardList) === 0) {
-            return '';
+            throw new PhotoServiceException('No cards available');
         }
 
         // sort by array key
