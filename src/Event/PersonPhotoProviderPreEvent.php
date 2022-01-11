@@ -21,4 +21,9 @@ class PersonPhotoProviderPreEvent extends Event
     {
         return $this->userId;
     }
+
+    public function setUserId(string $userId): void
+    {
+        $this->userId = $userId;
+    }
 }

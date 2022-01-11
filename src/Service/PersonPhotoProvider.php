@@ -14,7 +14,7 @@ use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPos
 use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPreEvent;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareInterface
 {
@@ -35,11 +35,15 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
      */
     private $userSession;
 
-    public function __construct(CampusonlineService $campusonlineService, LdapService $ldapService, UserSessionInterface $userSession)
+    /** @var EventDispatcherInterface */
+    private $dispatcher;
+
+    public function __construct(CampusonlineService $campusonlineService, LdapService $ldapService, UserSessionInterface $userSession, EventDispatcherInterface $dispatcher)
     {
         $this->campusonlineService = $campusonlineService;
         $this->ldapService = $ldapService;
         $this->userSession = $userSession;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -95,10 +99,8 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
 
     public function getPhotoDataForUser(string $userId): string
     {
-        $dispatcher = new EventDispatcher();
-
         $preEvent = new PersonPhotoProviderPreEvent($userId);
-        $dispatcher->dispatch($preEvent, PersonPhotoProviderPreEvent::NAME);
+        $this->dispatcher->dispatch($preEvent, PersonPhotoProviderPreEvent::NAME);
         $userId = $preEvent->getUserId();
 
         $ident = $this->ldapService->getCoIdent($userId);
@@ -129,7 +131,7 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
         }
 
         $postEvent = new PersonPhotoProviderPostEvent($userId, $pic->content);
-        $dispatcher->dispatch($postEvent, PersonPhotoProviderPostEvent::NAME);
+        $this->dispatcher->dispatch($postEvent, PersonPhotoProviderPostEvent::NAME);
 
         return $postEvent->getPhotoContent();
     }
