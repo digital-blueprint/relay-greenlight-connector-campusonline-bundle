@@ -10,8 +10,11 @@ use Dbp\CampusonlineApi\Rest\UCard\UCardType;
 use Dbp\Relay\CoreBundle\API\UserSessionInterface;
 use Dbp\Relay\GreenlightBundle\API\PersonPhotoProviderInterface;
 use Dbp\Relay\GreenlightBundle\Exception\PhotoServiceException;
+use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPostEvent;
+use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPreEvent;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareInterface
 {
@@ -92,6 +95,12 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
 
     public function getPhotoDataForUser(string $userId): string
     {
+        $dispatcher = new EventDispatcher();
+
+        $preEvent = new PersonPhotoProviderPreEvent($userId);
+        $dispatcher->dispatch($preEvent, PersonPhotoProviderPreEvent::NAME);
+        $userId = $preEvent->getUserId();
+
         $ident = $this->ldapService->getCoIdent($userId);
 
         try {
@@ -119,7 +128,10 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
             throw new PhotoServiceException($e->getMessage());
         }
 
-        return $pic->content;
+        $postEvent = new PersonPhotoProviderPostEvent($userId, $pic->content);
+        $dispatcher->dispatch($postEvent, PersonPhotoProviderPostEvent::NAME);
+
+        return $postEvent->getPhotoContent();
     }
 
     /**
