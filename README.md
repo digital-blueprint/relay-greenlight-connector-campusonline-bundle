@@ -77,3 +77,76 @@ Don't forget you need to pull down your dependencies in your main application if
 # updates and installs dependencies from dbp/relay-greenlight-connector-campusonline-bundle
 composer update dbp/relay-greenlight-connector-campusonline-bundle
 ```
+
+## Events
+
+This bundle registers the following events before and after a photo for a user is fetched from CampusOnline:
+
+### PersonPhotoProviderPreEvent
+
+This event is fired before a photo is fetched from CampusOnline. With this event you can modify the user id that is used to fetch the photo.
+An event listener receives a `Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPreEvent` instance.
+
+To get access to such an event you have to implement an event listener:
+
+```yaml
+  Dbp\Relay\MyBundle\EventListener\PersonPhotoProviderPreListener:
+    autowire: true
+    autoconfigure: true
+    tags:
+      - { name: kernel.event_listener, event: dbp.relay.greenlightconnectorcampusonline.personphotoprovider.post }
+```
+
+The listener gets called with a `PersonPhotoProviderPreEvent` object:
+
+```php
+use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPreEvent;
+
+class PersonPhotoProviderPreEvent
+{
+    public function onDbpRelayGreenlightconnectorcampusonlinePersonphotoproviderPre(PersonPhotoProviderPreEvent $event)
+    {
+        // Get the user id from the event
+        $userId = $event->getUserId();
+
+        // Do something with the user id
+        $event->setUserId("something-else");
+    }
+}
+```
+
+### PersonPhotoProviderPostEvent
+
+This event is fired after a photo is fetched from CampusOnline. With this event you can modify the photo content that was fetched from CampusOnline.
+An event listener receives a `Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPostEvent` instance.
+
+To get access to such an event you have to implement an event listener:
+
+```yaml
+  Dbp\Relay\MyBundle\EventListener\PersonPhotoProviderPostListener:
+    autowire: true
+    autoconfigure: true
+    tags:
+      - { name: kernel.event_listener, event: dbp.relay.greenlightconnectorcampusonline.personphotoprovider.post }
+```
+
+The listener gets called with a `PersonPhotoProviderPostEvent` object:
+
+```php
+use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPostEvent;
+
+class PersonPhotoProviderPostEvent
+{
+    public function onDbpRelayGreenlightconnectorcampusonlinePersonphotoproviderPost(PersonPhotoProviderPostEvent $event)
+    {
+        // Get the user id from the event
+        $userId = $event->getUserId();
+
+        // Get the photo content from the event
+        $photoContent = $event->getPhotoContent();
+
+        // Set a new photo
+        $event->setPhotoContent(file_get_contents(__DIR__.'/../Assets/another_photo.jpg'));
+    }
+}
+```
