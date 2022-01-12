@@ -94,7 +94,7 @@ To get access to such an event you have to implement an event listener:
     autowire: true
     autoconfigure: true
     tags:
-      - { name: kernel.event_listener, event: dbp.relay.greenlightconnectorcampusonline.personphotoprovider.post }
+      - { name: kernel.event_listener, event: dbp.relay.greenlight_connector_campusonline.person_photo_provider.pre }
 ```
 
 The listener gets called with a `PersonPhotoProviderPreEvent` object:
@@ -104,7 +104,7 @@ use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPre
 
 class PersonPhotoProviderPreEvent
 {
-    public function onDbpRelayGreenlightconnectorcampusonlinePersonphotoproviderPre(PersonPhotoProviderPreEvent $event)
+    public function onDbpRelayGreenlightConnectorCampusonlinePersonPhotoProviderPre(PersonPhotoProviderPreEvent $event)
     {
         // Get the user id from the event
         $userId = $event->getUserId();
@@ -127,7 +127,7 @@ To get access to such an event you have to implement an event listener:
     autowire: true
     autoconfigure: true
     tags:
-      - { name: kernel.event_listener, event: dbp.relay.greenlightconnectorcampusonline.personphotoprovider.post }
+      - { name: kernel.event_listener, event: dbp.relay.greenlight_connector_campusonline.person_photo_provider.post }
 ```
 
 The listener gets called with a `PersonPhotoProviderPostEvent` object:
@@ -137,7 +137,7 @@ use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPos
 
 class PersonPhotoProviderPostEvent
 {
-    public function onDbpRelayGreenlightconnectorcampusonlinePersonphotoproviderPost(PersonPhotoProviderPostEvent $event)
+    public function onDbpRelayGreenlightConnectorCampusonlinePersonPhotoProviderPost(PersonPhotoProviderPostEvent $event)
     {
         // Get the user id from the event
         $userId = $event->getUserId();

@@ -8,7 +8,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class PersonPhotoProviderPostEvent extends Event
 {
-    public const NAME = 'dbp.relay.greenlightconnectorcampusonline.personphotoprovider.post';
+    public const NAME = 'dbp.relay.greenlight_connector_campusonline.person_photo_provider.post';
 
     protected $userId;
     protected $photoContent;
