@@ -87,7 +87,7 @@ This bundle registers the following events before and after a photo for a user i
 This event is fired before a photo is fetched from CampusOnline. With this event you can modify the user id that is used to fetch the photo.
 An event listener receives a `Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPreEvent` instance.
 
-To get access to such an event you have to implement **either** an event subscriber or a listener.
+To get access to such an event you have to implement **either** an event subscriber (preferred) or a listener.
 
 #### Event Subscriber
 
@@ -119,6 +119,10 @@ class PersonPhotoProviderSubscriber implements EventSubscriberInterface
     }
 }
 ```
+
+If the subscriber service isn't found you may need to configure the service in your `config/services.yml` file or
+use the [dbp-relay-server-template](https://gitlab.tugraz.at/dbp/relay/dbp-relay-server-template)
+as Symfony application template.
 
 #### Event Listener
 
@@ -157,7 +161,7 @@ class PersonPhotoProviderPreEvent
 This event is fired after a photo is fetched from CampusOnline. With this event you can modify the photo content that was fetched from CampusOnline.
 An event listener receives a `Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPostEvent` instance.
 
-To get access to such an event you have to implement **either** an event subscriber or a listener.
+To get access to such an event you have to implement **either** an event subscriber (preferred) or a listener.
 
 #### Event Subscriber
 
@@ -192,6 +196,10 @@ class PersonPhotoProviderSubscriber implements EventSubscriberInterface
     }
 }
 ```
+
+If the subscriber service isn't found you may need to configure the service in your `config/services.yml` file or
+use the [dbp-relay-server-template](https://gitlab.tugraz.at/dbp/relay/dbp-relay-server-template)
+as Symfony application template.
 
 #### Event Listener
 
