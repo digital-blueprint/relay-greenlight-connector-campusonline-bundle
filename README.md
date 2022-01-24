@@ -85,7 +85,7 @@ This bundle registers the following events before and after a photo for a user i
 ### PersonPhotoProviderPreEvent
 
 This event is fired before a photo is fetched from CampusOnline. With this event you can modify the user id that is used to fetch the photo.
-An event listener receives a `Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPreEvent` instance.
+An event listener receives a `\Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPreEvent` instance.
 
 To get access to such an event you have to implement **either** an event subscriber (preferred) or a listener.
 
@@ -159,7 +159,7 @@ class PersonPhotoProviderPreEvent
 ### PersonPhotoProviderPostEvent
 
 This event is fired after a photo is fetched from CampusOnline. With this event you can modify the photo content that was fetched from CampusOnline.
-An event listener receives a `Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPostEvent` instance.
+An event listener receives a `\Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPostEvent` instance.
 
 To get access to such an event you have to implement **either** an event subscriber (preferred) or a listener.
 
