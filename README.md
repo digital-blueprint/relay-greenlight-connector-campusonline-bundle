@@ -95,6 +95,8 @@ The subscriber gets called with a `PersonPhotoProviderPreEvent` object in a serv
 for example in `src/EventSubscriber/PersonPhotoProviderSubscriber.php`:
 
 ```php
+<?php
+
 namespace App\EventSubscriber;
 
 use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPreEvent;
@@ -139,6 +141,8 @@ You need to configure the listener service in your `config/services.yml` file:
 The listener gets called with a `PersonPhotoProviderPreEvent` object in your service in `src/EventListener/PersonPhotoProviderPreListener.php`:
 
 ```php
+<?php
+
 namespace App\EventListener;
 
 use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPreEvent;
@@ -169,6 +173,8 @@ The subscriber gets called with a `PersonPhotoProviderPostEvent` object in a ser
 for example in `src/EventSubscriber/PersonPhotoProviderSubscriber.php`:
 
 ```php
+<?php
+
 namespace App\EventSubscriber;
 
 use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPostEvent;
@@ -216,6 +222,8 @@ You need to configure the listener service in your `config/services.yml` file:
 The listener gets called with a `PersonPhotoProviderPostEvent` object in your service in `src/EventListener/PersonPhotoProviderPostListener.php`:
 
 ```php
+<?php
+
 namespace App\EventListener;
 
 use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPostEvent;
