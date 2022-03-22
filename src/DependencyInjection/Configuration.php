@@ -53,7 +53,7 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder = new TreeBuilder('co_identifier_attributes');
         $coAttrNode = $treeBuilder->getRootNode()
-            ->info('LDAP attribute names that correspond to IDs in CAMPUSonline. At least on of the attributes needs to be set')
+            ->info('LDAP attribute names that correspond to IDs in CAMPUSonline. At least one of the attributes needs to be set')
             ->children()
                 ->scalarNode('ident_nr_obfuscated')
                     ->info('The LDAP attribute name for IDENT_NR_OBFUSCATED')
