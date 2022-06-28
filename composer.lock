@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eaab951c8d8231247d8423b007f42294",
+    "content-hash": "c2003110595131099eacab2dd1e8d721",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -448,23 +448,23 @@
         },
         {
             "name": "dbp/relay-greenlight-bundle",
-            "version": "v0.2.3",
+            "version": "v0.2.4",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.tugraz.at/dbp/greenlight/dbp-relay-greenlight-bundle",
-                "reference": "a542f45479977588541510bd3c33e6490d058c53"
+                "reference": "911a3ec8df6932e5c4e773b8397b5fd1794ef0b3"
             },
             "require": {
-                "api-platform/core": "^2.5",
-                "dbp/relay-base-person-bundle": "^0.2.0",
-                "dbp/relay-core-bundle": "^0.1.30",
+                "api-platform/core": "^2.6",
+                "dbp/relay-base-person-bundle": "^0.2.1",
+                "dbp/relay-core-bundle": "^0.1.37",
                 "ext-gd": "*",
                 "ext-json": "*",
                 "php": ">=7.3",
                 "spomky-labs/base64url": "^2.0",
-                "symfony/framework-bundle": "^5.2",
+                "symfony/framework-bundle": "^5.4",
                 "symfony/orm-pack": "^2.1",
-                "symfony/uid": "^5.3",
+                "symfony/uid": "^5.4",
                 "web-token/jwt-encryption": "^2.2",
                 "web-token/jwt-encryption-algorithm-aesgcm": "^2.2",
                 "web-token/jwt-encryption-algorithm-aeskw": "^2.2",
@@ -474,11 +474,11 @@
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "phpstan/phpstan": "^1.0.0",
                 "phpstan/phpstan-phpunit": "^1.0.0",
-                "phpunit/phpunit": "^9",
-                "symfony/browser-kit": "^5.2",
-                "symfony/http-client": "^5.2",
+                "phpunit/phpunit": "^9.5",
+                "symfony/browser-kit": "^5.4",
+                "symfony/http-client": "^5.4",
                 "symfony/monolog-bundle": "^3.7",
-                "symfony/phpunit-bridge": "^5.2",
+                "symfony/phpunit-bridge": "^5.4",
                 "vimeo/psalm": "^4.2.1"
             },
             "type": "symfony-bundle",
@@ -491,7 +491,7 @@
             "license": [
                 "AGPL-3.0-or-later"
             ],
-            "time": "2022-03-23T09:59:36+00:00"
+            "time": "2022-06-28T09:08:46+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -12778,16 +12778,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "4.23.0",
+            "version": "4.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "f1fe6ff483bf325c803df9f510d09a03fd796f88"
+                "reference": "06dd975cb55d36af80f242561738f16c5f58264f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/f1fe6ff483bf325c803df9f510d09a03fd796f88",
-                "reference": "f1fe6ff483bf325c803df9f510d09a03fd796f88",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/06dd975cb55d36af80f242561738f16c5f58264f",
+                "reference": "06dd975cb55d36af80f242561738f16c5f58264f",
                 "shasum": ""
             },
             "require": {
@@ -12879,9 +12879,9 @@
             ],
             "support": {
                 "issues": "https://github.com/vimeo/psalm/issues",
-                "source": "https://github.com/vimeo/psalm/tree/4.23.0"
+                "source": "https://github.com/vimeo/psalm/tree/4.24.0"
             },
-            "time": "2022-04-28T17:35:49+00:00"
+            "time": "2022-06-26T11:47:54+00:00"
         },
         {
             "name": "webmozart/path-util",
