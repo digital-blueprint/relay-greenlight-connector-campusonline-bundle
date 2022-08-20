@@ -294,11 +294,11 @@
         },
         {
             "name": "dbp/campusonline-api",
-            "version": "v0.2.5",
+            "version": "v0.2.6",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.tugraz.at/dbp/campus-online/dbp-campusonline-api",
-                "reference": "dd6955153c6b2ce7712b609f057c34d1d62a722d"
+                "reference": "5fbb5e98ec9d53556fbbe9cdecedb8d1811c1a90"
             },
             "require": {
                 "ext-json": "*",
@@ -327,7 +327,7 @@
             "license": [
                 "AGPL-3.0-or-later"
             ],
-            "time": "2022-06-22T09:09:33+00:00"
+            "time": "2022-08-10T08:49:40+00:00"
         },
         {
             "name": "dbp/relay-base-person-bundle",
@@ -380,11 +380,11 @@
         },
         {
             "name": "dbp/relay-core-bundle",
-            "version": "0.1.37",
+            "version": "v0.1.38",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.tugraz.at/dbp/relay/dbp-relay-core-bundle",
-                "reference": "b58c833026de0aa0572a38684d0b0f2107e46aee"
+                "reference": "d4686f81efdec53c082808c1c827c3d2912dabac"
             },
             "require": {
                 "api-platform/core": "^2.6.6",
@@ -393,6 +393,8 @@
                 "ext-fileinfo": "*",
                 "ext-json": "*",
                 "guzzlehttp/guzzle": "^7.0",
+                "kevinrob/guzzle-cache-middleware": "^4.0",
+                "league/uri": "^6.5",
                 "nelmio/cors-bundle": "^2.1.0",
                 "php": "^7.3 || ^8.0",
                 "phpdocumentor/reflection-docblock": "^3.0 || ^4.0 || ^5.0",
@@ -420,6 +422,7 @@
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "phpstan/phpstan": "^1.0.0",
                 "phpstan/phpstan-phpunit": "^1.0.0",
+                "phpstan/phpstan-symfony": "^1.2",
                 "phpunit/phpunit": "^9",
                 "symfony/browser-kit": "^5.3",
                 "symfony/http-client": "^5.3",
@@ -444,7 +447,7 @@
                 "AGPL-3.0-or-later"
             ],
             "description": "The core bundle of the Relay API gateway",
-            "time": "2022-06-22T09:04:47+00:00"
+            "time": "2022-08-16T08:35:41+00:00"
         },
         {
             "name": "dbp/relay-greenlight-bundle",
