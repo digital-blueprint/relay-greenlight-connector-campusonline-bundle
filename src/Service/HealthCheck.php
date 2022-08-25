@@ -21,7 +21,7 @@ class HealthCheck implements CheckInterface
 
     public function getName(): string
     {
-        return 'greenlight-campusonline-connector';
+        return 'greenlight-connector-campusonline';
     }
 
     private function checkMethod(string $description, callable $func): CheckResult
