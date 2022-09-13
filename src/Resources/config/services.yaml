@@ -20,5 +20,9 @@ services:
     autowire: true
     autoconfigure: true
 
-  Dbp\Relay\GreenlightBundle\API\PersonPhotoProviderInterface:
-    '@Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\PersonPhotoProvider'
+  Dbp\Relay\GreenlightConnectorCampusonlineBundle\EventSubscriber\ProxyDataEventSubscriber:
+    autowire: true
+    autoconfigure: true
+
+#  Dbp\Relay\GreenlightBundle\API\PersonPhotoProviderInterface:
+#    '@Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\PersonPhotoProvider'

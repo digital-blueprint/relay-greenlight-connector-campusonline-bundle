@@ -10,6 +10,7 @@
         "dbp/campusonline-api": "^0.2.5",
         "dbp/relay-core-bundle": "^0.1.35",
         "dbp/relay-greenlight-bundle": "^0.2.4",
+        "dbp/relay-proxy-bundle": "^0.1.0",
         "symfony/event-dispatcher": "^5.4",
         "symfony/framework-bundle": "^5.4"
     },
@@ -24,6 +25,12 @@
         "symfony/phpunit-bridge": "^5.4",
         "vimeo/psalm": "^4.2.1"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@gitlab.tugraz.at:dbp/relay/dbp-relay-proxy-bundle.git"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Dbp\\Relay\\GreenlightConnectorCampusonlineBundle\\": "src/"
@@ -38,6 +45,9 @@
         "sort-packages": true,
         "platform": {
             "php": "7.3"
+        },
+        "allow-plugins": {
+            "composer/package-versions-deprecated": false
         }
     },
     "scripts": {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2003110595131099eacab2dd1e8d721",
+    "content-hash": "f18dbb0c6ee8d2359c8fb338d7fcef82",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -495,6 +495,76 @@
                 "AGPL-3.0-or-later"
             ],
             "time": "2022-06-28T09:08:46+00:00"
+        },
+        {
+            "name": "dbp/relay-proxy-bundle",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "git@gitlab.tugraz.at:dbp/relay/dbp-relay-proxy-bundle.git",
+                "reference": "722c0e9ba3c322b1d36a9b748005bbd28968b375"
+            },
+            "require": {
+                "api-platform/core": "^2.6",
+                "dbp/relay-core-bundle": "^0.1.35",
+                "ext-json": "*",
+                "php": ">=7.3",
+                "symfony/event-dispatcher": "^5.4",
+                "symfony/framework-bundle": "^5.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "phpstan/phpstan": "^1.0.0",
+                "phpstan/phpstan-phpunit": "^1.0.0",
+                "phpstan/phpstan-symfony": "^1.2",
+                "phpunit/phpunit": "^9",
+                "symfony/browser-kit": "^5.4",
+                "symfony/http-client": "^5.4",
+                "symfony/monolog-bundle": "^3.7",
+                "symfony/phpunit-bridge": "^5.4",
+                "vimeo/psalm": "^4.2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Dbp\\Relay\\ProxyBundle\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Dbp\\Relay\\ProxyBundle\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "@php vendor/bin/phpunit"
+                ],
+                "phpstan": [
+                    "@php vendor/bin/phpstan analyze --ansi"
+                ],
+                "psalm": [
+                    "@php vendor/bin/psalm"
+                ],
+                "lint": [
+                    "@composer run cs",
+                    "@composer run phpstan",
+                    "@composer run psalm"
+                ],
+                "cs-fix": [
+                    "@php vendor/bin/php-cs-fixer --ansi fix"
+                ],
+                "cs": [
+                    "@php vendor/bin/php-cs-fixer --ansi fix --dry-run --diff"
+                ],
+                "coverage": [
+                    "@php -dxdebug.mode=coverage vendor/bin/phpunit --coverage-html _coverage"
+                ]
+            },
+            "license": [
+                "AGPL-3.0-or-later"
+            ],
+            "description": "A template bundle for the Relay API gateway",
+            "time": "2022-09-08T08:02:48+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -12890,5 +12960,5 @@
     "platform-overrides": {
         "php": "7.3"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }
