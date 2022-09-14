@@ -8,10 +8,10 @@ use Dbp\CampusonlineApi\Rest\ApiException;
 use Dbp\CampusonlineApi\Rest\UCard\UCard;
 use Dbp\CampusonlineApi\Rest\UCard\UCardType;
 use Dbp\Relay\CoreBundle\API\UserSessionInterface;
-use Dbp\Relay\GreenlightBundle\API\PersonPhotoProviderInterface;
-use Dbp\Relay\GreenlightBundle\Exception\PhotoServiceException;
+use Dbp\Relay\GreenlightConnectorCampusonlineBundle\API\PersonPhotoProviderInterface;
 use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPostEvent;
 use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Event\PersonPhotoProviderPreEvent;
+use Exception;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -110,16 +110,16 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
         } catch (ApiException $e) {
             $this->logger->error('Cards could not be fetched: '.$e->getMessage());
 
-            throw new PhotoServiceException($e->getMessage());
+            throw new Exception($e->getMessage());
         }
 
         if (count($cards) === 0) {
-            throw new PhotoServiceException('No cards found');
+            throw new Exception('No cards found');
         }
 
         $card = self::selectCard($cards);
         if ($card === null) {
-            throw new PhotoServiceException('No suitable card found');
+            throw new Exception('No suitable card found');
         }
 
         try {
@@ -127,7 +127,7 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
         } catch (ApiException $e) {
             $this->logger->error('Card picture could not be fetched: '.$e->getMessage());
 
-            throw new PhotoServiceException($e->getMessage());
+            throw new Exception($e->getMessage());
         }
 
         $postEvent = new PersonPhotoProviderPostEvent($userId, $pic->content);
@@ -139,13 +139,13 @@ class PersonPhotoProvider implements PersonPhotoProviderInterface, LoggerAwareIn
     /**
      * Returns the photo of a person as binary data.
      *
-     * @throws PhotoServiceException
+     * @throws Exception
      */
     public function getPhotoDataForCurrentUser(): string
     {
         $userId = $this->userSession->getUserIdentifier();
         if ($userId === null) {
-            throw new PhotoServiceException('No user ID available');
+            throw new Exception('No user ID available');
         }
 
         return $this->getPhotoDataForUser($userId);

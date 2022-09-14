@@ -60,6 +60,9 @@ class CampusonlineService implements LoggerAwareInterface
         return $this->service;
     }
 
+    /**
+     * @throws ApiException
+     */
     public function checkConnection()
     {
         $ucard = $this->getApi()->UCard();
@@ -80,6 +83,9 @@ class CampusonlineService implements LoggerAwareInterface
         return $ucard->getCardsForIdentIdObfuscated($ident, $cardType);
     }
 
+    /**
+     * @throws ApiException
+     */
     public function getIdentIdObfuscatedForCoIdent(CoIdent $ident): ?string
     {
         // If we got the identIdObfuscated from LDAP just return it
@@ -108,6 +114,8 @@ class CampusonlineService implements LoggerAwareInterface
 
     /**
      * @return UCard[]
+     *
+     * @throws ApiException
      */
     public function getCardsForCoIdent(CoIdent $ident, ?string $cardType = null): array
     {
