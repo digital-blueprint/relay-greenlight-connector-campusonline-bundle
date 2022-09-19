@@ -6,16 +6,17 @@ namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\EventSubscriber;
 
 use Dbp\Relay\CoreBundle\Helpers\Tools;
 use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\PersonPhotoProvider;
-use Dbp\Relay\ProxyBundle\Event\ProxyDataEvent;
+use Dbp\Relay\ProxyBundle\EventSubscriber\ProxyDataEventSubscriber as BaseProxyDataEventSubscriber;
 use Exception;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ProxyDataEventSubscriber implements EventSubscriberInterface
+class ProxyDataEventSubscriber extends BaseProxyDataEventSubscriber
 {
-    private const NAMESPACE = 'greenlight';
+    protected const NAMESPACE = 'greenlight';
+
     private const GET_PHOTO_DATA_FOR_USER_FUNCTION_NAME = 'getPhotoDataForUser';
     private const USER_ID_PARAMETER_NAME = 'userId';
 
+    /** @var PersonPhotoProvider */
     private $dataProvider;
 
     public function __construct(PersonPhotoProvider $dataProvider)
@@ -23,42 +24,29 @@ class ProxyDataEventSubscriber implements EventSubscriberInterface
         $this->dataProvider = $dataProvider;
     }
 
-    public static function getSubscribedEvents(): array
+    protected function isFunctionDefined(string $functionName): bool
     {
-        return [
-            ProxyDataEvent::NAME.self::NAMESPACE => 'onProxyDataRequest',
-         ];
+        return $functionName === self::GET_PHOTO_DATA_FOR_USER_FUNCTION_NAME;
     }
 
-    public function onProxyDataRequest(ProxyDataEvent $event)
+    protected function areAllRequiredArgumentsDefined(array $arguments): bool
     {
-        $proxyData = $event->getProxyData();
-        $arguments = $proxyData->getArguments();
+        return !Tools::isNullOrEmpty($arguments[self::USER_ID_PARAMETER_NAME] ?? null);
+    }
 
+    /**
+     * @throws Exception
+     */
+    protected function callFunction(string $functionName, array $arguments)
+    {
         $returnValue = null;
 
-        switch ($proxyData->getFunctionName()) {
-            case self::GET_PHOTO_DATA_FOR_USER_FUNCTION_NAME:
-                try {
-                    $userId = $arguments[self::USER_ID_PARAMETER_NAME] ?? null;
-                    if (Tools::isNullOrEmpty($userId)) {
-                        $proxyData->setErrorsFromException(new Exception(
-                            sprintf('missing parameter "%s" for function "%s" under namespace "%s"',
-                                self::USER_ID_PARAMETER_NAME, $proxyData->getFunctionName(), $proxyData->getNamespace()), 400));
-                    } else {
-                        $imageData = $this->dataProvider->getPhotoDataForUser($userId);
-                        $returnValue = base64_encode($imageData);
-                    }
-                } catch (\Exception $exception) {
-                    $proxyData->setErrorsFromException($exception);
-                }
-                break;
-            default:
-                $proxyData->setErrorsFromException(new Exception(
-                    sprintf('unknown function "%s" under namespace "%s"', $proxyData->getFunctionName(), $proxyData->getNamespace()), 400));
-                break;
+        if ($functionName === self::GET_PHOTO_DATA_FOR_USER_FUNCTION_NAME) {
+            $userId = $arguments[self::USER_ID_PARAMETER_NAME];
+            $imageData = $this->dataProvider->getPhotoDataForUser($userId);
+            $returnValue = base64_encode($imageData);
         }
 
-        $proxyData->setData($returnValue);
+        return $returnValue;
     }
 }

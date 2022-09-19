@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3181f592709f29738e566f8d11414cb6",
+    "content-hash": "7846fb0c36b18bbdd95a27c412feb005",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -505,17 +505,11 @@
         },
         {
             "name": "dbp/relay-proxy-bundle",
-            "version": "v0.1.0",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "git@gitlab.tugraz.at:dbp/relay/dbp-relay-proxy-bundle.git",
-                "reference": "722c0e9ba3c322b1d36a9b748005bbd28968b375"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://gitlab.tugraz.at/api/v4/projects/dbp%2Frelay%2Fdbp-relay-proxy-bundle/repository/archive.zip?sha=722c0e9ba3c322b1d36a9b748005bbd28968b375",
-                "reference": "722c0e9ba3c322b1d36a9b748005bbd28968b375",
-                "shasum": ""
+                "reference": "2d53f54d96ca09e81df3f265da336d4d15a12f49"
             },
             "require": {
                 "api-platform/core": "^2.6",
@@ -577,11 +571,7 @@
                 "AGPL-3.0-or-later"
             ],
             "description": "A template bundle for the Relay API gateway",
-            "support": {
-                "source": "https://gitlab.tugraz.at/dbp/relay/dbp-relay-proxy-bundle/-/tree/v0.1.0",
-                "issues": "https://gitlab.tugraz.at/dbp/relay/dbp-relay-proxy-bundle/-/issues"
-            },
-            "time": "2022-09-08T10:02:48+02:00"
+            "time": "2022-09-19T08:22:34+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -12977,5 +12967,5 @@
     "platform-overrides": {
         "php": "7.3"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }
