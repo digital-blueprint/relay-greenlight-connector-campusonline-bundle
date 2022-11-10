@@ -4,46 +4,45 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\EventSubscriber;
 
-use Dbp\Relay\CoreBundle\Helpers\Tools;
+use Dbp\Relay\CoreBundle\ProxyApi\AbstractProxyDataEventSubscriber;
 use Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\PersonPhotoProvider;
-use Dbp\Relay\ProxyBundle\EventSubscriber\ProxyDataEventSubscriber as BaseProxyDataEventSubscriber;
 use Exception;
 
-class ProxyDataEventSubscriber extends BaseProxyDataEventSubscriber
+class ProxyDataEventSubscriber extends AbstractProxyDataEventSubscriber
 {
-    protected const NAMESPACE = 'greenlight';
+    private const NAMESPACE = 'greenlight';
 
     private const GET_PHOTO_DATA_FOR_USER_FUNCTION_NAME = 'getPhotoDataForUser';
     private const USER_ID_PARAMETER_NAME = 'userId';
 
     /** @var PersonPhotoProvider */
-    private $dataProvider;
+    private $personPhotoProvider;
 
-    public function __construct(PersonPhotoProvider $dataProvider)
+    public function __construct(PersonPhotoProvider $personPhotoProvider)
     {
-        $this->dataProvider = $dataProvider;
+        $this->personPhotoProvider = $personPhotoProvider;
     }
 
-    protected function isFunctionDefined(string $functionName): bool
+    protected static function getSubscribedNamespace(): string
     {
-        return $functionName === self::GET_PHOTO_DATA_FOR_USER_FUNCTION_NAME;
+        return self::NAMESPACE;
     }
 
-    protected function areAllRequiredArgumentsDefined(array $arguments): bool
+    protected static function getAvailableFunctionSignatures(): array
     {
-        return !Tools::isNullOrEmpty($arguments[self::USER_ID_PARAMETER_NAME] ?? null);
+        return [self::GET_PHOTO_DATA_FOR_USER_FUNCTION_NAME => [self::USER_ID_PARAMETER_NAME]];
     }
 
     /**
      * @throws Exception
      */
-    protected function callFunction(string $functionName, array $arguments)
+    protected function callFunction(string $functionName, array $arguments): ?string
     {
         $returnValue = null;
 
         if ($functionName === self::GET_PHOTO_DATA_FOR_USER_FUNCTION_NAME) {
             $userId = $arguments[self::USER_ID_PARAMETER_NAME];
-            $imageData = $this->dataProvider->getPhotoDataForUser($userId);
+            $imageData = $this->personPhotoProvider->getPhotoDataForUser($userId);
             $returnValue = base64_encode($imageData);
         }
 

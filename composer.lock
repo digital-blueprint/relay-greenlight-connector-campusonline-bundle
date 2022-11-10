@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7846fb0c36b18bbdd95a27c412feb005",
+    "content-hash": "e4a1ca47a87203f80dc121740fa5bb60",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -73,24 +73,24 @@
         },
         {
             "name": "api-platform/core",
-            "version": "v2.7.3",
+            "version": "v2.6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "d81ef53acb085aaf88c7a3b42150de3ed654f1e3"
+                "reference": "ff3aab5b196709c721960c0bb4f1d52759af737d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/d81ef53acb085aaf88c7a3b42150de3ed654f1e3",
-                "reference": "d81ef53acb085aaf88c7a3b42150de3ed654f1e3",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/ff3aab5b196709c721960c0bb4f1d52759af737d",
+                "reference": "ff3aab5b196709c721960c0bb4f1d52759af737d",
                 "shasum": ""
             },
             "require": {
                 "doctrine/inflector": "^1.0 || ^2.0",
+                "fig/link-util": "^1.0",
                 "php": ">=7.1",
                 "psr/cache": "^1.0 || ^2.0 || ^3.0",
                 "psr/container": "^1.0 || ^2.0",
-                "symfony/deprecation-contracts": "^2.1 || ^3.0",
                 "symfony/http-foundation": "^4.4 || ^5.1 || ^6.0",
                 "symfony/http-kernel": "^4.4 || ^5.1 || ^6.0",
                 "symfony/property-access": "^3.4.19 || ^4.4 || ^5.1 || ^6.0",
@@ -103,8 +103,7 @@
                 "doctrine/common": "<2.7",
                 "doctrine/dbal": "<2.10",
                 "doctrine/mongodb-odm": "<2.2",
-                "doctrine/persistence": "<1.3",
-                "elasticsearch/elasticsearch": ">=8.0"
+                "doctrine/persistence": "<1.3"
             },
             "require-dev": {
                 "behat/behat": "^3.1",
@@ -118,7 +117,7 @@
                 "doctrine/mongodb-odm": "^2.2",
                 "doctrine/mongodb-odm-bundle": "^4.0",
                 "doctrine/orm": "^2.6.4",
-                "elasticsearch/elasticsearch": "^7.11.0",
+                "elasticsearch/elasticsearch": "^6.0 || ^7.0",
                 "friends-of-behat/mink-browserkit-driver": "^1.3.1",
                 "friends-of-behat/mink-extension": "^2.2",
                 "friends-of-behat/symfony-extension": "^2.1",
@@ -127,7 +126,6 @@
                 "justinrainbow/json-schema": "^5.2.1",
                 "phpdocumentor/reflection-docblock": "^3.0 || ^4.0 || ^5.1",
                 "phpdocumentor/type-resolver": "^0.3 || ^0.4 || ^1.4",
-                "phpspec/prophecy": "^1.10",
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan": "^1.1",
                 "phpstan/phpstan-doctrine": "^1.0",
@@ -154,8 +152,6 @@
                 "symfony/form": "^3.4 || ^4.4 || ^5.1 || ^6.0",
                 "symfony/framework-bundle": "^4.4 || ^5.1 || ^6.0",
                 "symfony/http-client": "^4.4 || ^5.1 || ^6.0",
-                "symfony/intl": "^4.4 || ^5.3 || ^6.0",
-                "symfony/maker-bundle": "^1.24",
                 "symfony/mercure-bundle": "*",
                 "symfony/messenger": "^4.4 || ^5.1 || ^6.0",
                 "symfony/phpunit-bridge": "^5.4 || ^6.0",
@@ -172,6 +168,7 @@
             "suggest": {
                 "doctrine/mongodb-odm-bundle": "To support MongoDB. Only versions 4.0 and later are supported.",
                 "elasticsearch/elasticsearch": "To support Elasticsearch.",
+                "guzzlehttp/guzzle": "To use the HTTP cache invalidation system.",
                 "ocramius/package-versions": "To display the API Platform's version in the debug bar.",
                 "phpdocumentor/reflection-docblock": "To support extracting metadata from PHPDoc.",
                 "psr/cache-implementation": "To use metadata caching.",
@@ -179,8 +176,6 @@
                 "symfony/cache": "To have metadata caching when using Symfony integration.",
                 "symfony/config": "To load XML configuration files.",
                 "symfony/expression-language": "To use authorization features.",
-                "symfony/http-client": "To use the HTTP cache invalidation system.",
-                "symfony/messenger": "To support messenger integration.",
                 "symfony/security": "To use authorization features.",
                 "symfony/twig-bundle": "To use the Swagger UI integration.",
                 "symfony/uid": "To support Symfony UUID/ULID identifiers.",
@@ -190,18 +185,15 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.7.x-dev"
+                    "dev-main": "2.6.x-dev"
                 },
                 "symfony": {
                     "require": "^3.4 || ^4.4 || ^5.1 || ^6.0"
                 }
             },
             "autoload": {
-                "files": [
-                    "src/deprecation.php"
-                ],
                 "psr-4": {
-                    "ApiPlatform\\": "src/"
+                    "ApiPlatform\\Core\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -230,7 +222,7 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/core/issues",
-                "source": "https://github.com/api-platform/core/tree/v2.7.3"
+                "source": "https://github.com/api-platform/core/tree/v2.6.8"
             },
             "funding": [
                 {
@@ -238,7 +230,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-04T19:04:19+00:00"
+            "time": "2022-01-11T10:29:54+00:00"
         },
         {
             "name": "brick/math",
@@ -388,54 +380,55 @@
         },
         {
             "name": "dbp/relay-core-bundle",
-            "version": "v0.1.42",
+            "version": "v0.1.54",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.tugraz.at/dbp/relay/dbp-relay-core-bundle",
-                "reference": "6ae27634574cff5f08ef2ff6cbb3cf72c155cf20"
+                "reference": "a011f9d7328ca99b75e37307d4766588cf7467bc"
             },
             "require": {
-                "api-platform/core": "^2.6.6",
-                "doctrine/annotations": "^1.0",
-                "dragonmantank/cron-expression": "^3.1",
+                "api-platform/core": "^2.6.8 <2.7.0",
+                "doctrine/annotations": "^1.13",
+                "dragonmantank/cron-expression": "^3.3",
                 "ext-fileinfo": "*",
+                "ext-intl": "*",
                 "ext-json": "*",
-                "guzzlehttp/guzzle": "^7.0",
+                "guzzlehttp/guzzle": "^7.5",
                 "kevinrob/guzzle-cache-middleware": "^4.0",
-                "league/uri": "^6.5",
-                "nelmio/cors-bundle": "^2.1.0",
-                "php": "^7.3 || ^8.0",
+                "nelmio/cors-bundle": "^2.2",
+                "php": ">=7.3",
                 "phpdocumentor/reflection-docblock": "^3.0 || ^4.0 || ^5.0",
-                "symfony/asset": "^5.3",
-                "symfony/config": "^5.3",
-                "symfony/event-dispatcher": "^5.3",
-                "symfony/expression-language": "^5.3",
+                "symfony/asset": "^5.4",
+                "symfony/config": "^5.4",
+                "symfony/event-dispatcher": "^5.4",
+                "symfony/expression-language": "^5.4",
                 "symfony/framework-bundle": "^5.4",
                 "symfony/lock": "^5.4",
-                "symfony/messenger": "^5.3",
-                "symfony/mime": "^5.3",
-                "symfony/security-bundle": "^5.3",
-                "symfony/security-core": "^5.3",
-                "symfony/security-guard": "^5.3",
-                "symfony/twig-bundle": "^5.3",
+                "symfony/messenger": "^5.4",
+                "symfony/mime": "^5.4",
+                "symfony/process": "^5.4",
+                "symfony/security-bundle": "^5.4",
+                "symfony/security-core": "^5.4",
+                "symfony/security-guard": "^5.4",
+                "symfony/twig-bundle": "^5.4",
                 "symfony/uid": "^5.4",
-                "symfony/validator": "^5.3",
-                "symfony/yaml": "^5.3"
+                "symfony/validator": "^5.4",
+                "symfony/yaml": "^5.4"
             },
             "conflict": {
                 "symfony/dependency-injection": "5.3.7"
             },
             "require-dev": {
-                "brainmaestro/composer-git-hooks": "^2.8",
-                "friendsofphp/php-cs-fixer": "^3.0",
-                "phpstan/phpstan": "^1.0.0",
-                "phpstan/phpstan-phpunit": "^1.0.0",
-                "phpstan/phpstan-symfony": "^1.2",
-                "phpunit/phpunit": "^9",
-                "symfony/browser-kit": "^5.3",
-                "symfony/http-client": "^5.3",
-                "symfony/phpunit-bridge": "^5.3",
-                "vimeo/psalm": "^4.4"
+                "brainmaestro/composer-git-hooks": "^2.8.5",
+                "friendsofphp/php-cs-fixer": "^3.4",
+                "phpstan/phpstan": "^1.8.6",
+                "phpstan/phpstan-phpunit": "^1.1.1",
+                "phpstan/phpstan-symfony": "^1.2.13",
+                "phpunit/phpunit": "^9.5.25",
+                "symfony/browser-kit": "^5.4.11",
+                "symfony/http-client": "^5.4.13",
+                "symfony/phpunit-bridge": "^5.4.11",
+                "vimeo/psalm": "^4.27"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -455,7 +448,7 @@
                 "AGPL-3.0-or-later"
             ],
             "description": "The core bundle of the Relay API gateway",
-            "time": "2022-09-14T10:25:56+00:00"
+            "time": "2022-11-10T09:50:41+00:00"
         },
         {
             "name": "dbp/relay-greenlight-bundle",
@@ -503,86 +496,6 @@
                 "AGPL-3.0-or-later"
             ],
             "time": "2022-09-14T12:30:50+00:00"
-        },
-        {
-            "name": "dbp/relay-proxy-bundle",
-            "version": "v0.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://gitlab.tugraz.at/dbp/relay/dbp-relay-proxy-bundle.git",
-                "reference": "ea13807c7e2fad8d0f078831647471cd74386bee"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://gitlab.tugraz.at/api/v4/projects/dbp%2Frelay%2Fdbp-relay-proxy-bundle/repository/archive.zip?sha=ea13807c7e2fad8d0f078831647471cd74386bee",
-                "reference": "ea13807c7e2fad8d0f078831647471cd74386bee",
-                "shasum": ""
-            },
-            "require": {
-                "api-platform/core": "^2.6",
-                "dbp/relay-core-bundle": "^0.1.35",
-                "ext-json": "*",
-                "php": ">=7.3",
-                "symfony/event-dispatcher": "^5.4",
-                "symfony/framework-bundle": "^5.4"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.0",
-                "phpstan/phpstan": "^1.0.0",
-                "phpstan/phpstan-phpunit": "^1.0.0",
-                "phpstan/phpstan-symfony": "^1.2",
-                "phpunit/phpunit": "^9",
-                "symfony/browser-kit": "^5.4",
-                "symfony/http-client": "^5.4",
-                "symfony/monolog-bundle": "^3.7",
-                "symfony/phpunit-bridge": "^5.4",
-                "vimeo/psalm": "^4.2.1"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "Dbp\\Relay\\ProxyBundle\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Dbp\\Relay\\ProxyBundle\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "@php vendor/bin/phpunit"
-                ],
-                "phpstan": [
-                    "@php vendor/bin/phpstan analyze --ansi"
-                ],
-                "psalm": [
-                    "@php vendor/bin/psalm"
-                ],
-                "lint": [
-                    "@composer run cs",
-                    "@composer run phpstan",
-                    "@composer run psalm"
-                ],
-                "cs-fix": [
-                    "@php vendor/bin/php-cs-fixer --ansi fix"
-                ],
-                "cs": [
-                    "@php vendor/bin/php-cs-fixer --ansi fix --dry-run --diff"
-                ],
-                "coverage": [
-                    "@php -dxdebug.mode=coverage vendor/bin/phpunit --coverage-html _coverage"
-                ]
-            },
-            "license": [
-                "AGPL-3.0-or-later"
-            ],
-            "description": "A template bundle for the Relay API gateway",
-            "support": {
-                "source": "https://gitlab.tugraz.at/dbp/relay/dbp-relay-proxy-bundle/-/tree/v0.1.3",
-                "issues": "https://gitlab.tugraz.at/dbp/relay/dbp-relay-proxy-bundle/-/issues"
-            },
-            "time": "2022-09-21T10:36:31+02:00"
         },
         {
             "name": "doctrine/annotations",
@@ -2086,6 +1999,67 @@
                 "source": "https://github.com/fgrosse/PHPASN1/tree/v2.4.0"
             },
             "time": "2021-12-11T12:41:06+00:00"
+        },
+        {
+            "name": "fig/link-util",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/link-util.git",
+                "reference": "5d7b8d04ed3393b4b59968ca1e906fb7186d81e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/link-util/zipball/5d7b8d04ed3393b4b59968ca1e906fb7186d81e8",
+                "reference": "5d7b8d04ed3393b4b59968ca1e906fb7186d81e8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "psr/link": "~1.0@dev"
+            },
+            "provide": {
+                "psr/link-implementation": "1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.1",
+                "squizlabs/php_codesniffer": "^2.3.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fig\\Link\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common utility implementations for HTTP links",
+            "keywords": [
+                "http",
+                "http-link",
+                "link",
+                "psr",
+                "psr-13",
+                "rest"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/link-util/issues",
+                "source": "https://github.com/php-fig/link-util/tree/1.1.2"
+            },
+            "time": "2021-02-03T23:36:04+00:00"
         },
         {
             "name": "friendsofphp/proxy-manager-lts",
@@ -6650,6 +6624,68 @@
                 }
             ],
             "time": "2022-05-24T11:49:31+00:00"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v5.4.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "6e75fe6874cbc7e4773d049616ab450eff537bf1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/6e75fe6874cbc7e4773d049616ab450eff537bf1",
+                "reference": "6e75fe6874cbc7e4773d049616ab450eff537bf1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/polyfill-php80": "^1.16"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Executes commands in sub-processes",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/process/tree/v5.4.11"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-06-27T16:58:25+00:00"
         },
         {
             "name": "symfony/property-access",
@@ -12640,68 +12676,6 @@
             "time": "2022-10-07T08:01:20+00:00"
         },
         {
-            "name": "symfony/process",
-            "version": "v5.4.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/process.git",
-                "reference": "6e75fe6874cbc7e4773d049616ab450eff537bf1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/6e75fe6874cbc7e4773d049616ab450eff537bf1",
-                "reference": "6e75fe6874cbc7e4773d049616ab450eff537bf1",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "symfony/polyfill-php80": "^1.16"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Process\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Executes commands in sub-processes",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/process/tree/v5.4.11"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-06-27T16:58:25+00:00"
-        },
-        {
             "name": "theseer/tokenizer",
             "version": "1.2.1",
             "source": {
@@ -12924,5 +12898,5 @@
     "platform-overrides": {
         "php": "7.3"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }
