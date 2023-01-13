@@ -1,6 +1,6 @@
 # Overview
 
-Source: https://gitlab.tugraz.at/dbp/greenlight/dbp-relay-greenlight-connector-campusonline-bundle
+Source: https://github.com/digital-blueprint/dbp-relay-greenlight-connector-campusonline-bundle
 
 ```mermaid
 graph TD

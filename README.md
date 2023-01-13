@@ -1,8 +1,8 @@
 # DbpRelayGreenlightConnectorCampusonlineBundle
 
-[GitLab](https://gitlab.tugraz.at/dbp/greenlight/dbp-relay-greenlight-connector-campusonline-bundle) | [Packagist](https://packagist.org/packages/dbp/relay-greenlight-connector-campusonline-bundle)
+[GitHub](https://github.com/digital-blueprint/dbp-relay-greenlight-connector-campusonline-bundle) | [Packagist](https://packagist.org/packages/dbp/relay-greenlight-connector-campusonline-bundle)
 
-This bundle fetches images for [DbpRelayGreenlightBundle](https://gitlab.tugraz.at/dbp/greenlight/dbp-relay-greenlight-bundle)
+This Symfony bundle fetches images for [DbpRelayGreenlightBundle](https://gitlab.tugraz.at/dbp/greenlight/dbp-relay-greenlight-bundle)
 from CampusOnline, while retrieving the `co-obfuscated-c-ident` from LDAP.
 
 ## Bundle installation
