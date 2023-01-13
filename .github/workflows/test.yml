@@ -5,16 +5,15 @@ on:
   push:
   workflow_dispatch:
 
-env:
-  COMPOSER_CACHE_DIR: ${{ env.RUNNER_TEMP }}/_composer_cache
-
 jobs:
   unit-tests:
+    name: Tests for php${{ matrix.php-versions }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         php-versions: ['7.3', '7.4', '8.0', '8.1']
-    name: Tests for php${{ matrix.php-versions }}
+    env:
+      COMPOSER_CACHE_DIR: ${{ env.RUNNER_TEMP }}/_composer_cache
     steps:
     - name: Set up php${{ matrix.php-versions }}
       uses: shivammathur/setup-php@v2
@@ -34,8 +33,10 @@ jobs:
         composer install
         composer test
   linting:
-    runs-on: ubuntu-latest
     name: Linting
+    runs-on: ubuntu-latest
+    env:
+      COMPOSER_CACHE_DIR: ${{ env.RUNNER_TEMP }}/_composer_cache
     steps:
     - name: Set up php${{ matrix.php-versions }}
       uses: shivammathur/setup-php@v2
