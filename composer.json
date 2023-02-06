@@ -7,7 +7,7 @@
         "ext-json": "*",
         "adldap2/adldap2": "^10.3",
         "api-platform/core": "^2.6",
-        "dbp/campusonline-api": "^0.2.5",
+        "dbp/campusonline-api": "^0.3.1",
         "dbp/relay-core-bundle": "^0.1.54",
         "dbp/relay-greenlight-bundle": "^0.2.5",
         "symfony/event-dispatcher": "^5.4",

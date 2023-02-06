@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a93b92a1457f15e3218adb4b82aa141",
+    "content-hash": "8ac4719e1fc8df3f5eaefb190ceb27d6",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -367,11 +367,11 @@
         },
         {
             "name": "dbp/campusonline-api",
-            "version": "v0.2.23",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.tugraz.at/dbp/campus-online/dbp-campusonline-api",
-                "reference": "97514edc58934263dd122a4ccc7d3bde98125512"
+                "reference": "e230955e7212e5b88668333a80485b835ddb1aa0"
             },
             "require": {
                 "ext-json": "*",
@@ -400,7 +400,7 @@
             "license": [
                 "AGPL-3.0-or-later"
             ],
-            "time": "2022-11-30T12:15:00+00:00"
+            "time": "2023-02-02T15:14:41+00:00"
         },
         {
             "name": "dbp/relay-base-person-bundle",
@@ -12841,5 +12841,5 @@
     "platform-overrides": {
         "php": "7.3"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }
