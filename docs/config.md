@@ -1,5 +1,27 @@
 # Configuration
 
+## Recipe
+
+The default [Symfony recipe](https://github.com/digital-blueprint/symfony-recipes/tree/main/dbp/relay-greenlight-connector-campusonline-bundle)
+creates a minimal configuration with the following environment variables:
+
+```bash
+GREENLIGHT_CONNECTOR_CAMPUSONLINE_API_URL=https://campusonline.your.domain
+GREENLIGHT_CONNECTOR_CAMPUSONLINE_CLIENT_ID=client-id
+GREENLIGHT_CONNECTOR_CAMPUSONLINE_CLIENT_SECRET=secret
+GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_HOST=directory.your.domain
+GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_BASE_DN=ou=users,o=uni
+GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_USERNAME=cn=your_api,o=uni
+GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_PASSWORD=secret
+GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_IDENTIFIER_ATTRIBUTE=cn
+GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_CO_IDENT_NR_OBFUSCATED_ATTRIBUTE=co-obfuscated-c-ident
+```
+
+!!! tip
+
+    Consider putting the `GREENLIGHT_CONNECTOR_CAMPUSONLINE_CLIENT_SECRET`
+    and `GREENLIGHT_CONNECTOR_CAMPUSONLINE_LDAP_PASSWORD` in your `.env.local` file, because of the secret information.
+
 ## Bundle Configuration
 
 Created via `./bin/console config:dump-reference DbpRelayGreenlightConnectorCampusonlineBundle | sed '/^$/d'`
@@ -39,3 +61,11 @@ dbp_relay_greenlight_connector_campusonline:
             # The LDAP attribute name for PERSON_NR
             person_nr:            ~
 ```
+
+## Customization
+
+This bundle registers an event before and after a photo for a user is fetched from CampusOnline to be able to modify
+the user id that is used to fetch a photo and to modify the photo that is fetched.
+
+Please see [DbpRelayGreenlightConnectorCampusonlineBundle Events](https://gitlab.tugraz.at/dbp/greenlight/dbp-relay-greenlight-connector-campusonline-bundle#events)
+for more information.

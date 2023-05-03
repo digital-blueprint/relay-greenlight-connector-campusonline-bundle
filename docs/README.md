@@ -30,3 +30,8 @@ students visually via the frontend.
 * Access to a CAMPUSonline instance
 * A configured CAMPUSonline OAuth client for the `brm.pm.extension.ucardfoto` data service
 * An LDAP server for mapping user IDs to CAMPUSonline IDs.
+
+## Documentation
+
+* [Configuration](./config.md)
+* [Events](./events.md)
