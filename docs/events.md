@@ -43,7 +43,7 @@ class PersonPhotoProviderSubscriber implements EventSubscriberInterface
 ```
 
 If the subscriber service isn't found you may need to configure the service in your `config/services.yml` file or
-use the [dbp-relay-server-template](https://gitlab.tugraz.at/dbp/relay/dbp-relay-server-template)
+use the [dbp-relay-server-template](https://github.com/digital-blueprint/relay-server-template)
 as Symfony application template.
 
 ### Event Listener
@@ -124,7 +124,7 @@ class PersonPhotoProviderSubscriber implements EventSubscriberInterface
 ```
 
 If the subscriber service isn't found you may need to configure the service in your `config/services.yml` file or
-use the [dbp-relay-server-template](https://gitlab.tugraz.at/dbp/relay/dbp-relay-server-template)
+use the [dbp-relay-server-template](https://github.com/digital-blueprint/relay-server-template)
 as Symfony application template.
 
 ### Event Listener

@@ -67,5 +67,5 @@ dbp_relay_greenlight_connector_campusonline:
 This bundle registers an event before and after a photo for a user is fetched from CampusOnline to be able to modify
 the user id that is used to fetch a photo and to modify the photo that is fetched.
 
-Please see [DbpRelayGreenlightConnectorCampusonlineBundle Events](https://gitlab.tugraz.at/dbp/greenlight/dbp-relay-greenlight-connector-campusonline-bundle#events)
+Please see [DbpRelayGreenlightConnectorCampusonlineBundle Events](./events.md)
 for more information.
