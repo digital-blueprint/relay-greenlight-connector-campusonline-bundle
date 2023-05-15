@@ -211,7 +211,7 @@ class LdapService implements LoggerAwareInterface, ServiceSubscriberInterface
         return $ident;
     }
 
-    public static function getSubscribedServices()
+    public static function getSubscribedServices(): array
     {
         return [
             UserSessionInterface::class,

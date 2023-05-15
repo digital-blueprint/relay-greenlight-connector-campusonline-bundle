@@ -29,7 +29,7 @@ class PictureFetchCommand extends Command
         $this->addArgument('user-id', InputArgument::REQUIRED, 'The API user ID');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $provider = $this->provider;
         $userId = $input->getArgument('user-id');
