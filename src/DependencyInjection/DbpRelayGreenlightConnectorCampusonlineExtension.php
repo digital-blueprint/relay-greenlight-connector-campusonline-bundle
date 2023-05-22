@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Dbp\Relay\GreenlightConnectorCampusonlineBundle\DependencyInjection;
 
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -21,16 +20,10 @@ class DbpRelayGreenlightConnectorCampusonlineExtension extends ConfigurableExten
 
         $loader->load('services.yaml');
 
-        $ldapCache = $container->register('dbp_api.cache.greenlight_connector_campusonline.ldap', FilesystemAdapter::class);
-        $ldapCache->setArguments(['core-ldap', 360, '%kernel.cache_dir%/dbp/greenlight-connector-campusonline-ldap']);
-        $ldapCache->setPublic(true);
-        $ldapCache->addTag('cache.pool');
-
         $definition = $container->getDefinition('Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\CampusonlineService');
         $definition->addMethodCall('setConfig', [$mergedConfig['campusonline'] ?? []]);
 
         $definition = $container->getDefinition('Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\LdapService');
         $definition->addMethodCall('setConfig', [$mergedConfig['ldap'] ?? []]);
-        $definition->addMethodCall('setLDAPCache', [$ldapCache, 360]);
     }
 }

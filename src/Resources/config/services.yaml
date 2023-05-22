@@ -2,6 +2,8 @@ services:
   Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\LdapService:
     autowire: true
     autoconfigure: true
+    calls:
+      - setLDAPCache: [ '@dbp.relay.greenlight_connector_campusonline.cache.ldap', 360 ]
 
   Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\CampusonlineService:
     autowire: true
@@ -26,3 +28,8 @@ services:
 
   Dbp\Relay\GreenlightBundle\API\PersonPhotoProviderInterface:
     '@Dbp\Relay\GreenlightConnectorCampusonlineBundle\Service\PersonPhotoProvider'
+
+  dbp.relay.greenlight_connector_campusonline.cache.ldap:
+    parent: cache.app
+    tags:
+      - { name: 'cache.pool', default_lifetime: 360 }
