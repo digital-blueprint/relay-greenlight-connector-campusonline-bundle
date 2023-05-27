@@ -481,16 +481,16 @@
         },
         {
             "name": "dbp/relay-core-bundle",
-            "version": "v0.1.103",
+            "version": "v0.1.105",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-core-bundle.git",
-                "reference": "ba7595372088b8e33f53d68f37344d823613ae29"
+                "reference": "b722b9a0dd66e406ad749376633763f6496068a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-core-bundle/zipball/ba7595372088b8e33f53d68f37344d823613ae29",
-                "reference": "ba7595372088b8e33f53d68f37344d823613ae29",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-core-bundle/zipball/b722b9a0dd66e406ad749376633763f6496068a9",
+                "reference": "b722b9a0dd66e406ad749376633763f6496068a9",
                 "shasum": ""
             },
             "require": {
@@ -558,22 +558,22 @@
             "description": "The core bundle of the Relay API gateway",
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-core-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-core-bundle/tree/v0.1.103"
+                "source": "https://github.com/digital-blueprint/relay-core-bundle/tree/v0.1.105"
             },
-            "time": "2023-05-17T12:00:58+00:00"
+            "time": "2023-05-23T12:30:21+00:00"
         },
         {
             "name": "dbp/relay-greenlight-bundle",
-            "version": "v0.2.10",
+            "version": "v0.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/digital-blueprint/relay-greenlight-bundle.git",
-                "reference": "cbcc53749bf65a59e01e64710123256cebfdec21"
+                "reference": "1c660da63c14bb59fbe5b49ce14049dde9ee9a76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digital-blueprint/relay-greenlight-bundle/zipball/cbcc53749bf65a59e01e64710123256cebfdec21",
-                "reference": "cbcc53749bf65a59e01e64710123256cebfdec21",
+                "url": "https://api.github.com/repos/digital-blueprint/relay-greenlight-bundle/zipball/1c660da63c14bb59fbe5b49ce14049dde9ee9a76",
+                "reference": "1c660da63c14bb59fbe5b49ce14049dde9ee9a76",
                 "shasum": ""
             },
             "require": {
@@ -615,9 +615,9 @@
             ],
             "support": {
                 "issues": "https://github.com/digital-blueprint/relay-greenlight-bundle/issues",
-                "source": "https://github.com/digital-blueprint/relay-greenlight-bundle/tree/v0.2.10"
+                "source": "https://github.com/digital-blueprint/relay-greenlight-bundle/tree/v0.2.11"
             },
-            "time": "2023-05-15T09:37:13+00:00"
+            "time": "2023-05-22T12:31:39+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -2125,22 +2125,22 @@
         },
         {
             "name": "friendsofphp/proxy-manager-lts",
-            "version": "v1.0.15",
+            "version": "v1.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/proxy-manager-lts.git",
-                "reference": "3ca65b8edb8d96b46fedc9bb4911396516347129"
+                "reference": "ecadbdc9052e4ad08c60c8a02268712e50427f7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/proxy-manager-lts/zipball/3ca65b8edb8d96b46fedc9bb4911396516347129",
-                "reference": "3ca65b8edb8d96b46fedc9bb4911396516347129",
+                "url": "https://api.github.com/repos/FriendsOfPHP/proxy-manager-lts/zipball/ecadbdc9052e4ad08c60c8a02268712e50427f7c",
+                "reference": "ecadbdc9052e4ad08c60c8a02268712e50427f7c",
                 "shasum": ""
             },
             "require": {
                 "laminas/laminas-code": "~3.4.1|^4.0",
                 "php": ">=7.1",
-                "symfony/filesystem": "^4.4.17|^5.0|^6.0"
+                "symfony/filesystem": "^4.4.17|^5.0|^6.0|^7.0"
             },
             "conflict": {
                 "laminas/laminas-stdlib": "<3.2.1",
@@ -2151,7 +2151,7 @@
             },
             "require-dev": {
                 "ext-phar": "*",
-                "symfony/phpunit-bridge": "^5.4|^6.0"
+                "symfony/phpunit-bridge": "^5.4|^6.0|^7.0"
             },
             "type": "library",
             "extra": {
@@ -2191,7 +2191,7 @@
             ],
             "support": {
                 "issues": "https://github.com/FriendsOfPHP/proxy-manager-lts/issues",
-                "source": "https://github.com/FriendsOfPHP/proxy-manager-lts/tree/v1.0.15"
+                "source": "https://github.com/FriendsOfPHP/proxy-manager-lts/tree/v1.0.16"
             },
             "funding": [
                 {
@@ -2203,7 +2203,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-16T13:18:04+00:00"
+            "time": "2023-05-24T07:17:17+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2580,20 +2580,21 @@
         },
         {
             "name": "kevinrob/guzzle-cache-middleware",
-            "version": "v4.0.2",
+            "version": "v4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kevinrob/guzzle-cache-middleware.git",
-                "reference": "24b93edc942f2eaaeb17f7ae0d6db0f77f4ed4ea"
+                "reference": "8528f8c040c333480cbf885ef669dfb33a21f1e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kevinrob/guzzle-cache-middleware/zipball/24b93edc942f2eaaeb17f7ae0d6db0f77f4ed4ea",
-                "reference": "24b93edc942f2eaaeb17f7ae0d6db0f77f4ed4ea",
+                "url": "https://api.github.com/repos/Kevinrob/guzzle-cache-middleware/zipball/8528f8c040c333480cbf885ef669dfb33a21f1e8",
+                "reference": "8528f8c040c333480cbf885ef669dfb33a21f1e8",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.0 || ^7.0",
+                "guzzlehttp/promises": "^1.4 || ^2.0",
                 "guzzlehttp/psr7": "^1.7.0 || ^2.0.0",
                 "php": ">=7.2.0"
             },
@@ -2658,9 +2659,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Kevinrob/guzzle-cache-middleware/issues",
-                "source": "https://github.com/Kevinrob/guzzle-cache-middleware/tree/v4.0.2"
+                "source": "https://github.com/Kevinrob/guzzle-cache-middleware/tree/v4.1.0"
             },
-            "time": "2022-10-02T13:13:18+00:00"
+            "time": "2023-05-26T10:54:58+00:00"
         },
         {
             "name": "laminas/laminas-code",
