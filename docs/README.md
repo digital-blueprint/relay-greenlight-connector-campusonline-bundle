@@ -2,6 +2,10 @@
 
 Source: https://github.com/digital-blueprint/dbp-relay-greenlight-connector-campusonline-bundle
 
+!!! warning
+    With the Austrian EU Digital COVID Certificates infrastructure being
+    discontinued since June 2023 this bundle is no longer functional.
+
 ```mermaid
 graph TD
     style greenlight_connector_bundle fill:#606096,color:#fff
