@@ -28,5 +28,6 @@
       "matchPackageNames": ["api-platform/core"],
       "allowedVersions": "<2.7"
     }
-  ]
+  ],
+  "enabled": false
 }
