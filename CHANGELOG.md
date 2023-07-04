@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.17
+
+* This project depends on the DCC infrastructure of the Austrian Government. Since the DCC infrastructure is [no longer available since June 2023](https://github.com/Federal-Ministry-of-Health-AT/green-pass-overview/issues/11#issuecomment-1617997232), this project is no longer actively maintained.
+
 ## v0.1.16
 
 * Use the global "cache.app" adapter for caching instead of always using the filesystem adapter
